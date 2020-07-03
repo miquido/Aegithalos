@@ -22,7 +22,7 @@ public struct Setup<Subject> {
 // MARK: - Value types
 
 public extension Setup {
-
+  
   /// Type specifying instance of `Setup`. Does not apply any mutation by default allowing further composition.
   /// - parameter setup: Mutation function wrapped by this `Setup`. Empty function by default.
   /// - note: It is preffered to prepare `Setup` and specify `Subject` type by using this function
@@ -96,7 +96,7 @@ public extension Setup {
   
   /// Map `Subject` type to other type. This allows applying same `Setup` on
   /// other types that encapsulate instance of original `Subject` type.
-  /// - parameter keyPath: KeyPath used to provide mapping. It has to point to value of
+  /// - parameter keyPath: KeyPath used to provide mapping. It has to point to mutable value of
   /// original `Subject` type inside new `Subject` type.
   /// - returns: New `Setup` instance applying this one on other `Subject` type.
   @inlinable func contramap<OtherSubject>(
@@ -138,6 +138,20 @@ public extension Setup where Subject: AnyObject {
       self(applyOn: transform(otherSubject))
     }
   }
+  
+  /// Map `Subject` type to other type. This allows applying same `Setup` on
+  /// other types that encapsulate instance of original `Subject` type.
+  /// - parameter keyPath: KeyPath used to provide mapping. It has to point to value of
+  /// original `Subject` type inside new `Subject` type.
+  /// - returns: New `Setup` instance applying this one on other `Subject` type.
+  @inlinable func contramap<OtherSubject>(
+    _ keyPath: KeyPath<OtherSubject, Subject>
+  ) -> Setup<OtherSubject>
+  where OtherSubject: AnyObject {
+    .init { (otherSubject: inout OtherSubject) in
+      self(applyOn: otherSubject[keyPath: keyPath])
+    }
+  }
 }
 
 // MARK: - Function builder
@@ -160,7 +174,7 @@ public enum SetupBuilder {
   ) -> Setup<Subject> {
     Setup { (subject: inout Subject) in setup.forEach { $0(&subject) } }
   }
-
+  
   /// Function builder for `Subject` as reference type.
   public static func buildBlock<Subject>(
     _ setup: (Subject) -> Void...
