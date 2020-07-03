@@ -5,6 +5,13 @@ import Aegithalos
   
 public extension Setup where Subject: UIStackView {
   
+  @inlinable func arrangedSubview(_ view: UIView) -> Setup {
+    composed { stackView in
+      assert(view.superview == nil)
+      stackView.addArrangedSubview(view)
+    }
+  }
+  
   @inlinable func spacing(_ spacing: CGFloat) -> Setup {
     composed { stackView in stackView.spacing = spacing }
   }
