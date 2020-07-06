@@ -1,6 +1,6 @@
 #  Aegithalos
 
-Aegithalos is a small library focused on composition if mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
+Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
 
 ## Common usage
 
@@ -97,4 +97,21 @@ extension Setup where Subject: UILabel {
 }
 ```
 
-Aegithalos comes with set of usefull extensions for UIKit already prepared in AegithalosCocoa package.
+Aegithalos comes with set of usefull extensions for UIKit already prepared in AegithalosCocoa package. You can easily prapare any kind of ui setup with it, even layout constraints. Lets have a Signin with Apple button:
+
+```swift
+import AegithalosCocoa
+
+let signinWithAppleButtonSetup
+= Setup.of(UIButton.self)
+  .backgroundColor(.black)
+  .cornerRadius(5)
+  .height(equalTo: 50)
+  .titleColor(.white)
+  .titleAlignment(.center)
+  .titleFont(.systemFont(ofSize: 14, weight: .medium))
+  .title(localized: "com.miquido.signin.apple.button.tittle")
+  .titleInsets(UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
+  .tintColor(.white)
+  .image(symbol: "applelogo")
+```
