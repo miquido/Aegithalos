@@ -45,6 +45,10 @@ public extension Setup where Subject: UIView {
     composed { view in view.backgroundColor = color }
   }
   
+  @inlinable func tintColor(_ color: UIColor?) -> Setup {
+    composed { view in view.tintColor = color }
+  }
+  
   @inlinable func clipsToBounds(_ clipsToBounds: Bool) -> Setup {
     composed { view in view.clipsToBounds = clipsToBounds }
   }
@@ -265,17 +269,17 @@ public extension Setup where Subject: UIView {
       let constraints: Array<NSLayoutConstraint>
       if useSafeArea {
         constraints = [
-          view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: insets.top),
-          view.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: insets.left),
-          view.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: -insets.right),
-          view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: -insets.bottom),
+          view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
+          view.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
+          view.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
+          view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
         ]
       } else {
         constraints = [
-          view.topAnchor.constraint(equalTo: other.topAnchor, constant: insets.top),
-          view.leftAnchor.constraint(equalTo: other.leftAnchor, constant: insets.left),
-          view.rightAnchor.constraint(equalTo: other.rightAnchor, constant: -insets.right),
-          view.bottomAnchor.constraint(equalTo: other.bottomAnchor, constant: -insets.bottom),
+          view.topAnchor.constraint(equalTo: other.topAnchor, constant: -insets.top),
+          view.leftAnchor.constraint(equalTo: other.leftAnchor, constant: -insets.left),
+          view.rightAnchor.constraint(equalTo: other.rightAnchor, constant: insets.right),
+          view.bottomAnchor.constraint(equalTo: other.bottomAnchor, constant: insets.bottom),
         ]
       }
       
