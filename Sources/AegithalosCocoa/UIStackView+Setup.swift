@@ -6,14 +6,14 @@ import Aegithalos
 public extension Setup where Subject: UIStackView {
   
   @inlinable func arrangedSubview(_ view: UIView) -> Setup {
-    composed { stackView in
+    composed { [unowned view] stackView in
       assert(view.superview == nil)
       stackView.addArrangedSubview(view)
     }
   }
   
   @inlinable func arrangedSubviews(_ views: UIView...) -> Setup {
-    composed { stackView in
+    composed { stackView in // we should pass unowned references for views
       for view in views {
         assert(view.superview == nil)
         stackView.addArrangedSubview(view)

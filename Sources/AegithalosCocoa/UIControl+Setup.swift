@@ -13,8 +13,8 @@ public extension Setup where Subject: UIControl {
     composed { control in control.contentVerticalAlignment = alignment }
   }
   
-  @inlinable func target(_ target: Any?, action: Selector, for event: UIControl.Event = .touchUpInside) -> Setup {
-    composed { control in control.addTarget(target, action: action, for: event) }
+  @inlinable func target(_ target: Any & NSObjectProtocol, action: Selector, for event: UIControl.Event = .touchUpInside) -> Setup {
+    composed { [unowned target] control in control.addTarget(target, action: action, for: event) }
   }
 }
 

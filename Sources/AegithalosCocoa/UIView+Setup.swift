@@ -73,18 +73,18 @@ public extension Setup where Subject: UIView {
     composed { view in view.translatesAutoresizingMaskIntoConstraints = translates }
   }
   
-  @inlinable func subview(_ view: UIView) -> Setup {
-    composed { view in
-      assert(view.superview == nil)
-      view.addSubview(view)
+  @inlinable func subview(_ other: UIView) -> Setup {
+    composed { [unowned other] view in
+      assert(other.superview == nil)
+      view.addSubview(other)
     }
   }
   
   @inlinable func subviews(_ views: UIView...) -> Setup {
-     composed { view in
-      for view in views {
-         assert(view.superview == nil)
-         view.addSubview(view)
+     composed { view in // we should pass unowned references for views
+      for other in views {
+         assert(other.superview == nil)
+         view.addSubview(other)
       }
      }
    }
@@ -95,7 +95,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: anchor, constant: constant)
@@ -113,7 +113,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: anchor, constant: constant)
@@ -131,7 +131,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: anchor, constant: constant)
@@ -149,7 +149,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: anchor, constant: constant)
@@ -167,7 +167,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: anchor, constant: constant)
@@ -185,7 +185,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: anchor, constant: constant)
@@ -203,7 +203,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: anchor, constant: constant)
@@ -221,7 +221,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned anchor] view in
       let constraint: NSLayoutConstraint
       if useSafeArea {
         constraint = view.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: anchor, constant: constant)
@@ -261,7 +261,7 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { view in
+    composed { [unowned other] view in
       let constraints: Array<NSLayoutConstraint>
       if useSafeArea {
         constraints = [
