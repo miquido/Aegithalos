@@ -5,6 +5,14 @@ import Aegithalos
   
 public extension Setup where Subject: UITextView {
   
+  @inlinable func text(_ string: String) -> Setup {
+    composed { textView in textView.text = string }
+  }
+  
+  @inlinable func text(localized key: String, localizationComment: String = "") -> Setup {
+    composed { textView in textView.text = NSLocalizedString(key, comment: localizationComment) }
+  }
+  
   @inlinable func font(_ font: UIFont) -> Setup {
     composed { textView in textView.font = font }
   }
