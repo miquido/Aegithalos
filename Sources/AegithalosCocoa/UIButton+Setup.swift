@@ -13,6 +13,10 @@ public extension Setup where Subject: UIButton {
     composed { button in button.setTitle(title, for: state) }
   }
   
+  @inlinable func title(localized key: String, localizationComment: String = "", for state: UIControl.State = .normal) -> Setup {
+    composed { button in button.setTitle(NSLocalizedString(key, comment: localizationComment), for: state) }
+  }
+  
   @inlinable func attributedTitle(_ attributedTitle: NSAttributedString, for state: UIControl.State = .normal) -> Setup {
     composed { button in button.setAttributedTitle(attributedTitle, for: state) }
   }

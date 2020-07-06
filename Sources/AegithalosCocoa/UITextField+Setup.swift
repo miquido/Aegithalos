@@ -5,6 +5,14 @@ import Aegithalos
   
 public extension Setup where Subject: UITextField {
   
+  @inlinable func text(_ string: String) -> Setup {
+    composed { textField in textField.text = string }
+  }
+  
+  @inlinable func text(localized key: String, localizationComment: String = "") -> Setup {
+    composed { textField in textField.text = NSLocalizedString(key, comment: localizationComment) }
+  }
+  
   @inlinable func isSecureTextEntry(_ isSecure: Bool) -> Setup {
     composed { textField in textField.isSecureTextEntry = isSecure }
   }
