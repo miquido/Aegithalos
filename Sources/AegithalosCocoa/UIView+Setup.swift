@@ -6,19 +6,19 @@ import Aegithalos
 public extension Setup where Subject: UIView {
   
   @inlinable func frame(_ frame: CGRect) -> Setup {
-    composed { view in view.frame = frame }
+    composed { (subject: Subject) in subject.frame = frame }
   }
   
   @inlinable func center(_ center: CGPoint) -> Setup {
-    composed { view in view.center = center }
+    composed { (subject: Subject) in subject.center = center }
   }
   
   @inlinable func size(_ size: CGSize, preserveCenter: Bool = false) -> Setup {
-    composed { view in
-      view.frame
+    composed { (subject: Subject) in
+      subject.frame
         = preserveCenter
-        ? CGRect(center: view.frame.center, size: size)
-        : CGRect(origin: view.frame.origin, size: size)
+        ? CGRect(center: subject.frame.center, size: size)
+        : CGRect(origin: subject.frame.origin, size: size)
     }
   }
   
@@ -27,68 +27,68 @@ public extension Setup where Subject: UIView {
     corners: CACornerMask
     = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
   ) -> Setup {
-    composed { view in
-      view.layer.cornerRadius = radius
-      view.layer.maskedCorners = corners
+    composed { (subject: Subject) in
+      subject.layer.cornerRadius = radius
+      subject.layer.maskedCorners = corners
     }
   }
   
   @inlinable func borderWidth(_ width: CGFloat) -> Setup {
-    composed { view in view.layer.borderWidth = width }
+    composed { (subject: Subject) in subject.layer.borderWidth = width }
   }
   
   @inlinable func borderColor(_ color: UIColor?) -> Setup {
-    composed { view in view.layer.borderColor = color?.cgColor }
+    composed { (subject: Subject) in subject.layer.borderColor = color?.cgColor }
   }
   
   @inlinable func backgroundColor(_ color: UIColor?) -> Setup {
-    composed { view in view.backgroundColor = color }
+    composed { (subject: Subject) in subject.backgroundColor = color }
   }
   
   @inlinable func tintColor(_ color: UIColor?) -> Setup {
-    composed { view in view.tintColor = color }
+    composed { (subject: Subject) in subject.tintColor = color }
   }
   
   @inlinable func clipsToBounds(_ clipsToBounds: Bool) -> Setup {
-    composed { view in view.clipsToBounds = clipsToBounds }
+    composed { (subject: Subject) in subject.clipsToBounds = clipsToBounds }
   }
   
   @inlinable func isHidden(_ isHidden: Bool) -> Setup {
-    composed { view in view.isHidden = isHidden }
+    composed { (subject: Subject) in subject.isHidden = isHidden }
   }
   
   @inlinable func alpha(_ alpha: CGFloat) -> Setup {
-    composed { view in view.alpha = alpha }
+    composed { (subject: Subject) in subject.alpha = alpha }
   }
   
   @inlinable func isUserInteractionEnabled(_ enabled: Bool) -> Setup {
-    composed { view in view.isUserInteractionEnabled = enabled }
+    composed { (subject: Subject) in subject.isUserInteractionEnabled = enabled }
   }
   
   @inlinable func transform(_ transform: CGAffineTransform) -> Setup {
-    composed { view in view.transform = transform }
+    composed { (subject: Subject) in subject.transform = transform }
   }
   
   @inlinable func contentMode(_ mode: UIView.ContentMode) -> Setup {
-    composed { view in view.contentMode = mode }
+    composed { (subject: Subject) in subject.contentMode = mode }
   }
   
   @inlinable func translatesAutoresizingMaskIntoConstraints(_ translates: Bool) -> Setup {
-    composed { view in view.translatesAutoresizingMaskIntoConstraints = translates }
+    composed { (subject: Subject) in subject.translatesAutoresizingMaskIntoConstraints = translates }
   }
   
   @inlinable func subview(_ other: UIView) -> Setup {
-    composed { [unowned other] view in
+    composed { [unowned other] (subject: Subject) in
       assert(other.superview == nil)
-      view.addSubview(other)
+      subject.addSubview(other)
     }
   }
   
   @inlinable func subviews(_ views: UIView...) -> Setup {
-     composed { view in // we should pass unowned references for views
+     composed { (subject: Subject) in // we should pass unowned references for views
       for other in views {
          assert(other.superview == nil)
-         view.addSubview(other)
+         subject.addSubview(other)
       }
      }
    }
@@ -99,12 +99,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.topAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.topAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.topAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -117,12 +117,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.bottomAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.bottomAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -135,12 +135,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.centerYAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.centerYAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -153,12 +153,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.leftAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.leftAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -171,12 +171,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.leadingAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.leadingAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -189,12 +189,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.rightAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.rightAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -207,12 +207,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.trailingAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.trailingAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -225,12 +225,12 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned anchor] view in
+    composed { [unowned anchor] (subject: Subject) in
       let constraint: NSLayoutConstraint
       if useSafeArea {
-        constraint = view.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: anchor, constant: constant)
       } else {
-        constraint = view.centerXAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.centerXAnchor.constraint(equalTo: anchor, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -241,8 +241,8 @@ public extension Setup where Subject: UIView {
     equalTo constant: CGFloat,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { view in
-      let constraint = view.widthAnchor.constraint(equalToConstant: constant)
+    composed { (subject: Subject) in
+      let constraint = subject.widthAnchor.constraint(equalToConstant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -252,8 +252,8 @@ public extension Setup where Subject: UIView {
     equalTo constant: CGFloat,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { view in
-      let constraint = view.heightAnchor.constraint(equalToConstant: constant)
+    composed { (subject: Subject) in
+      let constraint = subject.heightAnchor.constraint(equalToConstant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -265,21 +265,21 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned other] view in
+    composed { [unowned other] (subject: Subject) in
       let constraints: Array<NSLayoutConstraint>
       if useSafeArea {
         constraints = [
-          view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
-          view.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
-          view.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
-          view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
+          subject.safeAreaLayoutGuide.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
+          subject.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
+          subject.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
+          subject.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
         ]
       } else {
         constraints = [
-          view.topAnchor.constraint(equalTo: other.topAnchor, constant: -insets.top),
-          view.leftAnchor.constraint(equalTo: other.leftAnchor, constant: -insets.left),
-          view.rightAnchor.constraint(equalTo: other.rightAnchor, constant: insets.right),
-          view.bottomAnchor.constraint(equalTo: other.bottomAnchor, constant: insets.bottom),
+          subject.topAnchor.constraint(equalTo: other.topAnchor, constant: -insets.top),
+          subject.leftAnchor.constraint(equalTo: other.leftAnchor, constant: -insets.left),
+          subject.rightAnchor.constraint(equalTo: other.rightAnchor, constant: insets.right),
+          subject.bottomAnchor.constraint(equalTo: other.bottomAnchor, constant: insets.bottom),
         ]
       }
       
