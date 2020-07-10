@@ -23,19 +23,13 @@ let package = Package(
       name: "Aegithalos",
       dependencies: []
     ),
-// TODO: tests
-//    .testTarget(
-//      name: "AegithalosTests",
-//      dependencies: ["Aegithalos"]
-//    ),
+    .testTarget(
+      name: "AegithalosTests",
+      dependencies: ["Aegithalos"]
+    ),
     .target(
       name: "AegithalosCocoa",
       dependencies: ["Aegithalos"]
     ),
-// TODO: tests
-//    .testTarget(
-//      name: "AegithalosTouchTests",
-//      dependencies: ["Aegithalos", "AegithalosTouch"]
-//    ),
   ]
 )
