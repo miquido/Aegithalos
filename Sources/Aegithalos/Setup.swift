@@ -43,14 +43,7 @@ public extension Setup {
     setup(&subject)
     return subject
   }
-  
-  /// Call wrapped function on given `Subject` instance reference.
-  /// - returns: Same `Subject` instance that was passed as argument.
-  @inlinable func callAsFunction(appliedOn subject: inout Subject) -> Subject {
-    setup(&subject)
-    return subject
-  }
-  
+
   /// Call wrapped function on given `Subject` instance reference.
   /// - returns: Same `Setup` instance.
   @discardableResult @inlinable func callAsFunction(applyOn subject: inout Subject) -> Self {
@@ -68,30 +61,11 @@ public extension Setup {
     }
   }
   
-  /// Extend this `Setup` by composing it with list of functions.
-  /// - parameter other: List of functions composed with this `Setup`.
-  /// - returns: New `Setup` instance which composes this one with given list of functions.
-  @inlinable func composed(with other: (inout Subject) -> Void...) -> Self {
-    .init { subject in
-      self(applyOn: &subject)
-      other.forEach { $0(&subject) }
-    }
-  }
-  
   /// Extend this `Setup` by composing it with another `Setup`.
   /// - parameter other: Other `Setup` composed with this one.
   /// - returns: New `Setup` instance which composes this one with the other one.
   @inlinable func composed(with other: Self) -> Self {
     composed(with: other.setup)
-  }
-  
-  /// Extend this `Setup` by composing it with list of `Setup` instances.
-  /// - parameter other: List of other `Setup` instances composed with this one.
-  /// - returns: New `Setup` instance which composes this one with list of other `Setup` instances.
-  @inlinable func composed(with other: Self...) -> Self {
-    composed { subject in
-      other.forEach { $0(applyOn: &subject) }
-    }
   }
   
   /// Map `Subject` type to other type. This allows applying same `Setup` on
@@ -125,6 +99,16 @@ public extension Setup where Subject: AnyObject {
     return self
   }
   
+  /// Extend this `Setup` by composing it with another function.
+  /// - parameter other: Function composed with this `Setup`.
+  /// - returns: New `Setup` instance which composes this one with given function.
+  @inlinable func composed(with other: @escaping (Subject) -> Void) -> Self {
+    .init { (subject: Subject) in
+      self(applyOn: subject)
+      other(subject)
+    }
+  }
+  
   /// Map `Subject` type to other type. This allows applying same `Setup` on
   /// other types that encapsulate instance of original `Subject` type.
   /// - parameter transform: Function used to provide mapping. It has to point to value of
@@ -152,92 +136,4 @@ public extension Setup where Subject: AnyObject {
       self(applyOn: otherSubject[keyPath: keyPath])
     }
   }
-}
-
-// MARK: - Function builder
-
-public extension Setup {
-  
-  /// Function builder initializer. Allows initialization from list of functions.
-  init(@SetupBuilder _ builder: () -> Self) {
-    self = builder()
-  }
-}
-
-/// Function builder for `Setup`.
-@_functionBuilder
-public enum SetupBuilder {
-  
-  /// Function builder for  `Subject` as value type.
-  public static func buildBlock<Subject>(
-    _ setup: (inout Subject) -> Void...
-  ) -> Setup<Subject> {
-    Setup { (subject: inout Subject) in setup.forEach { $0(&subject) } }
-  }
-  
-  /// Function builder for `Subject` as reference type.
-  public static func buildBlock<Subject>(
-    _ setup: (Subject) -> Void...
-  ) -> Setup<Subject>
-  where Subject: AnyObject {
-    Setup { (subject: Subject) in setup.forEach { $0(subject) } }
-  }
-}
-
-// MARK: - Operators
-
-infix operator <=<: SetupPrecedence
-
-precedencegroup SetupPrecedence {
-  higherThan: SetupComposePrecedence
-}
-
-/// Operator which creates `Setup` instance for given keyPath
-/// as mutation assigning given falue to that keyPath.
-@inlinable public func <=< <Subject, Value>(
-  _ lhs: WritableKeyPath<Subject, Value>,
-  _ rhs: Value
-) -> Setup<Subject> {
-  Setup { subject in
-    subject[keyPath: lhs] = rhs
-  }
-}
-
-/// Operator which creates  mutating function for given keyPath
-/// as mutation assigning given falue to that keyPath.
-@inlinable public func <=< <Subject, Value>(
-  _ lhs: WritableKeyPath<Subject, Value>,
-  _ rhs: Value
-) -> (inout Subject) -> Void {
-  { subject in
-    subject[keyPath: lhs] = rhs
-  }
-}
-
-/// Operator which creates  mutating function for given keyPath
-/// as mutation assigning given falue to that keyPath.
-@inlinable public func <=< <Subject, Value>(
-  _ lhs: WritableKeyPath<Subject, Value>,
-  _ rhs: Value
-) -> (Subject) -> Void
-where Subject: AnyObject {
-  { subject in
-    var subject = subject // compiler requires subject to be mutable regarding AnyObject usage
-    subject[keyPath: lhs] = rhs
-  }
-}
-
-infix operator <>: SetupComposePrecedence
-
-precedencegroup SetupComposePrecedence {
-  higherThan: AssignmentPrecedence
-}
-
-/// Compose two `Setup` instances.
-/// - returns: New `Setup` instance composing provided two.
-@inlinable public func <> <Subject>(
-  _ lhs: Setup<Subject>,
-  _ rhs: Setup<Subject>
-) -> Setup<Subject> {
-  lhs.composed(with: rhs)
 }

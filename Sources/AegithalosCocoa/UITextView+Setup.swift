@@ -6,59 +6,59 @@ import Aegithalos
 public extension Setup where Subject: UITextView {
   
   @inlinable func text(_ string: String) -> Setup {
-    composed { textView in textView.text = string }
+    composed { (subject: Subject) in subject.text = string }
   }
   
   @inlinable func text(localized key: String, localizationComment: String = "") -> Setup {
-    composed { textView in textView.text = NSLocalizedString(key, comment: localizationComment) }
+    composed { (subject: Subject) in subject.text = NSLocalizedString(key, comment: localizationComment) }
   }
   
   @inlinable func font(_ font: UIFont) -> Setup {
-    composed { textView in textView.font = font }
+    composed { (subject: Subject) in subject.font = font }
   }
   
   @inlinable func textContainerInset(_ inset: UIEdgeInsets) -> Setup {
-    composed { textView in textView.textContainerInset = inset }
+    composed { (subject: Subject) in subject.textContainerInset = inset }
   }
   
   @inlinable func returnKeyType(_ returnKeyType: UIReturnKeyType) -> Setup {
-    composed { textView in textView.returnKeyType = returnKeyType }
+    composed { (subject: Subject) in subject.returnKeyType = returnKeyType }
   }
   
   @inlinable func lineBreakMode(_ lineBreakMode: NSLineBreakMode) -> Setup {
-    composed { textView in textView.textContainer.lineBreakMode = lineBreakMode }
+    composed { (subject: Subject) in subject.textContainer.lineBreakMode = lineBreakMode }
   }
   
   @inlinable func lineFragmentPadding(_ padding: CGFloat) -> Setup {
-    composed { textView in textView.textContainer.lineFragmentPadding = padding }
+    composed { (subject: Subject) in subject.textContainer.lineFragmentPadding = padding }
   }
   
   @inlinable func usesFontLeading(_ uses: Bool) -> Setup {
-    composed { textView in textView.layoutManager.usesFontLeading = uses }
+    composed { (subject: Subject) in subject.layoutManager.usesFontLeading = uses }
   }
   
   @inlinable func isScrollEnabled(_ enabled: Bool) -> Setup {
-    composed { textView in textView.isScrollEnabled = enabled }
+    composed { (subject: Subject) in subject.isScrollEnabled = enabled }
   }
   
   @inlinable func isEditable(_ editable: Bool) -> Setup {
-    composed { textView in textView.isEditable = editable }
+    composed { (subject: Subject) in subject.isEditable = editable }
   }
   
   @inlinable func isSelectable(_ selectable: Bool) -> Setup {
-    composed { textView in textView.isSelectable = selectable }
+    composed { (subject: Subject) in subject.isSelectable = selectable }
   }
   
   @inlinable func tintColor(_ color: UIColor) -> Setup {
-    composed { label in label.tintColor = color }
+    composed { (subject: Subject) in subject.tintColor = color }
   }
   
   @inlinable func textColor(_ color: UIColor) -> Setup {
-    composed { textView in textView.textColor = color }
+    composed { (subject: Subject) in subject.textColor = color }
   }
   
   @inlinable func textAlignment(_ alignment: NSTextAlignment) -> Setup {
-    composed { textView in textView.textAlignment = alignment }
+    composed { (subject: Subject) in subject.textAlignment = alignment }
   }
 }
 
