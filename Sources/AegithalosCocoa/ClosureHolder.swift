@@ -1,5 +1,7 @@
 import Foundation
 
+/// Wrapper for closure that exposes objc selector for invoking it.
+/// Meant to be used for target/action mechanisms from UIKit.
 internal class ClosureHolder {
     private let closure: (Any?) -> Void
 

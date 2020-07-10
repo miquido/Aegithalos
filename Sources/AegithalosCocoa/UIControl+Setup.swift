@@ -18,7 +18,7 @@ public extension Setup where Subject: UIControl {
   }
   
   @inlinable func action(_ closure: @escaping () -> Void, for event: UIControl.Event = .touchUpInside) -> Setup {
-    composed { control in control.setClosure(closure, for: event) }
+    composed { (subject: Subject) in subject.setClosure(closure, for: event) }
   }
 }
 
