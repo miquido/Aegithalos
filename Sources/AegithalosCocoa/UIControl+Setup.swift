@@ -16,6 +16,10 @@ public extension Setup where Subject: UIControl {
   @inlinable func target(_ target: Any & NSObjectProtocol, action: Selector, for event: UIControl.Event = .touchUpInside) -> Setup {
     composed { [unowned target] (subject: Subject) in subject.addTarget(target, action: action, for: event) }
   }
+  
+  @inlinable func action(_ closure: @escaping () -> Void, for event: UIControl.Event = .touchUpInside) -> Setup {
+    composed { (subject: Subject) in subject.addAction(closure, for: event) }
+  }
 }
 
 #endif
