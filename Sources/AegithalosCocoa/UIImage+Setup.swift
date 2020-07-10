@@ -6,7 +6,7 @@ import Aegithalos
 public extension Setup where Subject: UIImageView {
   
   @inlinable func image(_ image: UIImage?) -> Setup {
-    composed { imageView in imageView.image = image }
+    composed { (subject: Subject) in subject.image = image }
   }
   
   @inlinable func image(
@@ -14,8 +14,8 @@ public extension Setup where Subject: UIImageView {
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Setup {
-    composed { imageView in
-      imageView.image = UIImage(named: imageName, in: bundle, compatibleWith: traitCollection)
+    composed { (subject: Subject) in
+      subject.image = UIImage(named: imageName, in: bundle, compatibleWith: traitCollection)
     }
   }
   
@@ -24,8 +24,8 @@ public extension Setup where Subject: UIImageView {
     symbol symbolName: String,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Setup {
-    composed { imageView in
-      imageView.image = UIImage(systemName: symbolName, compatibleWith: traitCollection)
+    composed { (subject: Subject) in
+      subject.image = UIImage(systemName: symbolName, compatibleWith: traitCollection)
     }
   }
 }

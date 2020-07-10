@@ -6,19 +6,19 @@ import Aegithalos
 public extension Setup where Subject: UIView {
   
   @inlinable func frame(_ frame: CGRect) -> Setup {
-    composed { view in view.frame = frame }
+    composed { (subject: Subject) in subject.frame = frame }
   }
   
   @inlinable func center(_ center: CGPoint) -> Setup {
-    composed { view in view.center = center }
+    composed { (subject: Subject) in subject.center = center }
   }
   
   @inlinable func size(_ size: CGSize, preserveCenter: Bool = false) -> Setup {
-    composed { view in
-      view.frame
+    composed { (subject: Subject) in
+      subject.frame
         = preserveCenter
-        ? CGRect(center: view.frame.center, size: size)
-        : CGRect(origin: view.frame.origin, size: size)
+        ? CGRect(center: subject.frame.center, size: size)
+        : CGRect(origin: subject.frame.origin, size: size)
     }
   }
   
@@ -27,68 +27,68 @@ public extension Setup where Subject: UIView {
     corners: CACornerMask
     = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
   ) -> Setup {
-    composed { view in
-      view.layer.cornerRadius = radius
-      view.layer.maskedCorners = corners
+    composed { (subject: Subject) in
+      subject.layer.cornerRadius = radius
+      subject.layer.maskedCorners = corners
     }
   }
   
   @inlinable func borderWidth(_ width: CGFloat) -> Setup {
-    composed { view in view.layer.borderWidth = width }
+    composed { (subject: Subject) in subject.layer.borderWidth = width }
   }
   
   @inlinable func borderColor(_ color: UIColor?) -> Setup {
-    composed { view in view.layer.borderColor = color?.cgColor }
+    composed { (subject: Subject) in subject.layer.borderColor = color?.cgColor }
   }
   
   @inlinable func backgroundColor(_ color: UIColor?) -> Setup {
-    composed { view in view.backgroundColor = color }
+    composed { (subject: Subject) in subject.backgroundColor = color }
   }
   
   @inlinable func tintColor(_ color: UIColor?) -> Setup {
-    composed { view in view.tintColor = color }
+    composed { (subject: Subject) in subject.tintColor = color }
   }
   
   @inlinable func clipsToBounds(_ clipsToBounds: Bool) -> Setup {
-    composed { view in view.clipsToBounds = clipsToBounds }
+    composed { (subject: Subject) in subject.clipsToBounds = clipsToBounds }
   }
   
   @inlinable func isHidden(_ isHidden: Bool) -> Setup {
-    composed { view in view.isHidden = isHidden }
+    composed { (subject: Subject) in subject.isHidden = isHidden }
   }
   
   @inlinable func alpha(_ alpha: CGFloat) -> Setup {
-    composed { view in view.alpha = alpha }
+    composed { (subject: Subject) in subject.alpha = alpha }
   }
   
   @inlinable func isUserInteractionEnabled(_ enabled: Bool) -> Setup {
-    composed { view in view.isUserInteractionEnabled = enabled }
+    composed { (subject: Subject) in subject.isUserInteractionEnabled = enabled }
   }
   
   @inlinable func transform(_ transform: CGAffineTransform) -> Setup {
-    composed { view in view.transform = transform }
+    composed { (subject: Subject) in subject.transform = transform }
   }
   
   @inlinable func contentMode(_ mode: UIView.ContentMode) -> Setup {
-    composed { view in view.contentMode = mode }
+    composed { (subject: Subject) in subject.contentMode = mode }
   }
   
   @inlinable func translatesAutoresizingMaskIntoConstraints(_ translates: Bool) -> Setup {
-    composed { view in view.translatesAutoresizingMaskIntoConstraints = translates }
+    composed { (subject: Subject) in subject.translatesAutoresizingMaskIntoConstraints = translates }
   }
   
   @inlinable func subview(_ other: UIView) -> Setup {
-    composed { [unowned other] view in
+    composed { [unowned other] (subject: Subject) in
       assert(other.superview == nil)
-      view.addSubview(other)
+      subject.addSubview(other)
     }
   }
   
   @inlinable func subviews(_ views: UIView...) -> Setup {
-     composed { view in // we should pass unowned references for views
+     composed { (subject: Subject) in // we should pass unowned references for views
       for other in views {
          assert(other.superview == nil)
-         view.addSubview(other)
+         subject.addSubview(other)
       }
      }
    }
@@ -98,9 +98,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.topAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.topAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -111,9 +111,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.bottomAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.bottomAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -124,9 +124,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.centerYAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.centerYAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -137,9 +137,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.leftAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.leftAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -150,9 +150,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.leadingAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.leadingAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -163,9 +163,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.rightAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.rightAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -176,9 +176,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.trailingAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.trailingAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -189,9 +189,9 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { [unowned anchor] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = view.centerXAnchor.constraint(equalTo: anchor, constant: constant)
+    composed { [unowned anchor] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.centerXAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -201,8 +201,8 @@ public extension Setup where Subject: UIView {
     equalTo constant: CGFloat,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { view in
-      let constraint = view.widthAnchor.constraint(equalToConstant: constant)
+    composed { (subject: Subject) in
+      let constraint = subject.widthAnchor.constraint(equalToConstant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -212,8 +212,8 @@ public extension Setup where Subject: UIView {
     equalTo constant: CGFloat,
     priority: UILayoutPriority = .required
   ) -> Setup {
-    composed { view in
-      let constraint = view.heightAnchor.constraint(equalToConstant: constant)
+    composed { (subject: Subject) in
+      let constraint = subject.heightAnchor.constraint(equalToConstant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -225,22 +225,22 @@ public extension Setup where Subject: UIView {
     priority: UILayoutPriority = .required,
     useSafeArea: Bool = true
   ) -> Setup {
-    composed { [unowned other] view in
-      view.translatesAutoresizingMaskIntoConstraints = false
+    composed { [unowned other] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
       let constraints: Array<NSLayoutConstraint>
       if useSafeArea {
         constraints = [
-          view.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
-          view.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
-          view.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
-          view.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
+          subject.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
+          subject.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
+          subject.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
+          subject.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
         ]
       } else {
         constraints = [
-          view.topAnchor.constraint(equalTo: other.topAnchor, constant: -insets.top),
-          view.leftAnchor.constraint(equalTo: other.leftAnchor, constant: -insets.left),
-          view.rightAnchor.constraint(equalTo: other.rightAnchor, constant: insets.right),
-          view.bottomAnchor.constraint(equalTo: other.bottomAnchor, constant: insets.bottom),
+          subject.topAnchor.constraint(equalTo: other.topAnchor, constant: -insets.top),
+          subject.leftAnchor.constraint(equalTo: other.leftAnchor, constant: -insets.left),
+          subject.rightAnchor.constraint(equalTo: other.rightAnchor, constant: insets.right),
+          subject.bottomAnchor.constraint(equalTo: other.bottomAnchor, constant: insets.bottom),
         ]
       }
       
@@ -252,14 +252,14 @@ public extension Setup where Subject: UIView {
   }
   
   @inlinable func hugging(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
-    composed { view in
-      view.setContentHuggingPriority(priority, for: axis)
+    composed { (subject: Subject) in
+      subject.setContentHuggingPriority(priority, for: axis)
     }
   }
   
   @inlinable func compressionResistance(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
-    composed { view in
-      view.setContentCompressionResistancePriority(priority, for: axis)
+    composed { (subject: Subject) in
+      subject.setContentCompressionResistancePriority(priority, for: axis)
     }
   }
 }
