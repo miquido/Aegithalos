@@ -96,16 +96,11 @@ public extension Setup where Subject: UIView {
   @inlinable func top(
     equalTo anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.topAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.topAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.topAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -114,16 +109,11 @@ public extension Setup where Subject: UIView {
   @inlinable func bottom(
     equalTo anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.bottomAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.bottomAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -132,16 +122,11 @@ public extension Setup where Subject: UIView {
   @inlinable func centerY(
     equalTo anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.centerYAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.centerYAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.centerYAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -150,16 +135,11 @@ public extension Setup where Subject: UIView {
   @inlinable func left(
     equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.leftAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.leftAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -168,16 +148,11 @@ public extension Setup where Subject: UIView {
   @inlinable func leading(
     equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.leadingAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.leadingAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -186,16 +161,11 @@ public extension Setup where Subject: UIView {
   @inlinable func right(
     equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.rightAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.rightAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -204,16 +174,11 @@ public extension Setup where Subject: UIView {
   @inlinable func trailing(
     equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.trailingAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.trailingAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -222,16 +187,11 @@ public extension Setup where Subject: UIView {
   @inlinable func centerX(
     equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
-    priority: UILayoutPriority = .required,
-    useSafeArea: Bool = true
+    priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
-      let constraint: NSLayoutConstraint
-      if useSafeArea {
-        constraint = subject.safeAreaLayoutGuide.centerXAnchor.constraint(equalTo: anchor, constant: constant)
-      } else {
-        constraint = subject.centerXAnchor.constraint(equalTo: anchor, constant: constant)
-      }
+      subject.translatesAutoresizingMaskIntoConstraints = false
+      let constraint = subject.centerXAnchor.constraint(equalTo: anchor, constant: constant)
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -266,13 +226,14 @@ public extension Setup where Subject: UIView {
     useSafeArea: Bool = true
   ) -> Setup {
     composed { [unowned other] (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = false
       let constraints: Array<NSLayoutConstraint>
       if useSafeArea {
         constraints = [
-          subject.safeAreaLayoutGuide.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
-          subject.safeAreaLayoutGuide.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
-          subject.safeAreaLayoutGuide.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
-          subject.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
+          subject.topAnchor.constraint(equalTo: other.safeAreaLayoutGuide.topAnchor, constant: -insets.top),
+          subject.leftAnchor.constraint(equalTo: other.safeAreaLayoutGuide.leftAnchor, constant: -insets.left),
+          subject.rightAnchor.constraint(equalTo: other.safeAreaLayoutGuide.rightAnchor, constant: insets.right),
+          subject.bottomAnchor.constraint(equalTo: other.safeAreaLayoutGuide.bottomAnchor, constant: insets.bottom),
         ]
       } else {
         constraints = [
@@ -287,6 +248,18 @@ public extension Setup where Subject: UIView {
         constraint.priority = priority
         constraint.isActive = true
       }
+    }
+  }
+  
+  @inlinable func hugging(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
+    composed { (subject: Subject) in
+      subject.setContentHuggingPriority(priority, for: axis)
+    }
+  }
+  
+  @inlinable func compressionResistance(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
+    composed { (subject: Subject) in
+      subject.setContentCompressionResistancePriority(priority, for: axis)
     }
   }
 }
