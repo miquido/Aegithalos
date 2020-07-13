@@ -2,6 +2,16 @@
 
 Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
 
+## Instalation
+
+Easiest way to use Aegithalos is to add it as you Swift package dependency:
+
+```swift
+.package(url: "https://github.com/miquido/aegithalos.git", from: "1.0.0")
+```
+
+You can also use Xcode add SPM dependency option using this URL: `https://github.com/miquido/aegithalos.git`.
+
 ## Common usage
 
 Main component of this library is `Setup` struct. It is used to encapsulate and compose mutating functions. You can use it to just  define some kind of setup function that can be passed around and applied on multiple subjects. For example - to prepare common style for UILabel applied on different screens in your application.
@@ -13,7 +23,7 @@ let labelSetup = Setup.of(UILabel.self) { label in
 }
 ```
 
-You can use it to apply same satup whenever it is needed. You can also prepare multiple styles depending on some state that can be applied on that state changes.
+You can use it to apply same setup whenever it is needed. You can also prepare multiple styles depending on some state that can be applied on that state changes.
 
 ```swift
 let labelAfterSetup = labelSetup(appliedOn: UILabel())
