@@ -3,6 +3,13 @@
 import UIKit
 import Aegithalos
 
+extension UIView: SetupInstantiable {
+
+  public static func instantiateForSetup() -> Self {
+    Self()
+  }
+}
+
 public extension Setup where Subject: UIView {
   
   @inlinable func frame(_ frame: CGRect) -> Setup {
