@@ -60,7 +60,7 @@ public extension Setup where Subject: UIButton {
   }
   
   @inlinable func image(
-    _ image: UIImage,
+    _ image: UIImage?,
     withInsets insets: UIEdgeInsets = .zero,
     forState state: UIControl.State = .normal
   ) -> Setup {
