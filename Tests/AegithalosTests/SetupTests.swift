@@ -24,7 +24,7 @@ final class SetupTests: XCTestCase {
     super.tearDown()
   }
   
-  func test_Setup_emptyOf_doesNotModifySubject_forValueType() {
+  func test_emptyOf_doesNotModifySubject_forValueType() {
     let expectedValue = structSubject.value
     let setup = Setup.of(StructSubject.self)
     
@@ -33,7 +33,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(structSubject.value, expectedValue)
   }
   
-  func test_Setup_emptyOf_doesNotModifySubject_forReferenceType() {
+  func test_emptyOf_doesNotModifySubject_forReferenceType() {
     let expectedValue = classSubject.value
     let setup = Setup.of(ClassSubject.self)
     
@@ -42,7 +42,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(structSubject.value, expectedValue)
   }
   
-  func test_Setup_applyOn_modifiesSubjectInPlace_forValueType() {
+  func test_applyOn_modifiesSubjectInPlace_forValueType() {
     let expectedValue = 1024
     let setup = Setup.of(StructSubject.self) {
       $0.value = expectedValue
@@ -53,7 +53,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(structSubject.value, expectedValue)
   }
   
-  func test_Setup_appliedOn_modifiesSubjectCopy_forValueType() {
+  func test_appliedOn_modifiesSubjectCopy_forValueType() {
     let expectedValue = 1024
     let originalValue = structSubject.value
     let setup = Setup.of(StructSubject.self) {
@@ -66,7 +66,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(subjectCopy.value, expectedValue)
   }
   
-  func test_Setup_applyOn_modifiesSubjectInPlace_forReferenceType() {
+  func test_applyOn_modifiesSubjectInPlace_forReferenceType() {
     let expectedValue = 1024
     let setup = Setup.of(ClassSubject.self) {
       $0.value = expectedValue
@@ -77,7 +77,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(classSubject.value, expectedValue)
   }
   
-  func test_Setup_appliedOn_modifiesSubjectInPlace_forReferenceType() {
+  func test_appliedOn_modifiesSubjectInPlace_forReferenceType() {
     let expectedValue = 1024
     let setup = Setup.of(ClassSubject.self) {
       $0.value = expectedValue
@@ -89,7 +89,7 @@ final class SetupTests: XCTestCase {
     XCTAssert(subject === classSubject)
   }
   
-  func test_Setup_applyOn_callAndMethod_haveSameResult_forValueType() {
+  func test_applyOn_callAndMethod_haveSameResult_forValueType() {
     let setup = Setup.of(StructSubject.self) {
       $0.value = 1024
     }
@@ -101,7 +101,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(structSubject.value, subjectCopy.value)
   }
   
-  func test_Setup_appliedOn_callAndMethod_haveSameResult() {
+  func test_appliedOn_callAndMethod_haveSameResult() {
     let setup = Setup.of(StructSubject.self) {
       $0.value = 1024
     }
@@ -112,7 +112,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(firstCopy.value, secondCopy.value)
   }
   
-  func test_Setup_applyOn_callAndMethod_haveSameResult_forReferenceType() {
+  func test_applyOn_callAndMethod_haveSameResult_forReferenceType() {
     let secondSubject = ClassSubject()
     let setup = Setup.of(ClassSubject.self) {
       $0.value = 1024
@@ -124,7 +124,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(classSubject.value, secondSubject.value)
   }
   
-  func test_Setup_composed_appendsModification_forValueType() {
+  func test_composed_appendsModification_forValueType() {
     let expectedValue = 1024
     let setup = Setup
     .of(StructSubject.self) {
@@ -139,7 +139,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(structSubject.value, expectedValue)
   }
   
-  func test_Setup_composed_appendsModification_forReferenceType() {
+  func test_composed_appendsModification_forReferenceType() {
     let expectedValue = 1024
     let setup = Setup.of(ClassSubject.self) {
       $0.value = expectedValue - 1
@@ -153,7 +153,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(classSubject.value, expectedValue)
   }
   
-  func test_Setup_composedWithSetup_appendsModification() {
+  func test_composedWithSetup_appendsModification() {
     let expectedValue = 1024
     let setup = Setup.of(ClassSubject.self) {
       $0.value = expectedValue - 1
@@ -169,7 +169,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(classSubject.value, expectedValue)
   }
   
-  func test_Setup_contramap_appliesNestedModification_forValueType() {
+  func test_contramap_appliesNestedModification_forValueType() {
     let expectedValue = 1024
     let setup = Setup
     .of(StructSubject.self) {
@@ -182,7 +182,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(parentStructSubject.child.value, expectedValue)
   }
   
-  func test_Setup_contramap_appliesNestedModification_forReferenceType() {
+  func test_contramap_appliesNestedModification_forReferenceType() {
     let expectedValue = 1024
     let setup = Setup.of(ClassSubject.self) {
       $0.value = expectedValue
@@ -194,7 +194,7 @@ final class SetupTests: XCTestCase {
     XCTAssertEqual(parentClassSubject.child.value, expectedValue)
   }
   
-  func test_Setup_contramapClosure_appliesNestedModification_forReferenceType() {
+  func test_contramapClosure_appliesNestedModification_forReferenceType() {
     let expectedValue = 1024
     let setup = Setup.of(ClassSubject.self) {
       $0.value = expectedValue
