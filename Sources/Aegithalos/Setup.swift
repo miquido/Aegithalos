@@ -38,10 +38,24 @@ public extension Setup {
   /// - returns: New `Subject` instance that was created after applying mutations on passed subject.
   /// - warning: If `Subject` is a reference type there will be no copy created
   /// and all mutations will be applied on passed instance directly.
+  @inlinable func applied(on subject: Subject) -> Subject {
+    self(appliedOn: subject)
+  }
+  
+  /// Call wrapped function on given `Subject` instance.
+  /// - returns: New `Subject` instance that was created after applying mutations on passed subject.
+  /// - warning: If `Subject` is a reference type there will be no copy created
+  /// and all mutations will be applied on passed instance directly.
   @inlinable func callAsFunction(appliedOn subject: Subject) -> Subject {
     var subject = subject
     setup(&subject)
     return subject
+  }
+  
+  /// Call wrapped function on given `Subject` instance reference.
+  /// - returns: Same `Setup` instance.
+  @discardableResult @inlinable func apply(on subject: inout Subject) -> Self {
+    self(applyOn: &subject)
   }
 
   /// Call wrapped function on given `Subject` instance reference.
@@ -89,6 +103,12 @@ public extension Setup where Subject: AnyObject {
   /// Internal initializer for reference types.
   @usableFromInline internal init(setup: @escaping (Subject) -> Void) {
     self.setup = { setup($0) }
+  }
+  
+  /// Call wrapped function on given `Subject` instance reference.
+  /// - returns: Same `Setup` instance.
+  @discardableResult @inlinable func apply(on subject: Subject) -> Self {
+    self(applyOn: subject)
   }
   
   /// Call wrapped function on given `Subject` instance reference.

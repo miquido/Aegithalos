@@ -89,6 +89,41 @@ final class SetupTests: XCTestCase {
     XCTAssert(subject === classSubject)
   }
   
+  func test_Setup_applyOn_callAndMethod_haveSameResult_forValueType() {
+    let setup = Setup.of(StructSubject.self) {
+      $0.value = 1024
+    }
+    
+    var subjectCopy = structSubject!
+    setup(applyOn: &structSubject)
+    setup.apply(on: &subjectCopy)
+    
+    XCTAssertEqual(structSubject.value, subjectCopy.value)
+  }
+  
+  func test_Setup_appliedOn_callAndMethod_haveSameResult() {
+    let setup = Setup.of(StructSubject.self) {
+      $0.value = 1024
+    }
+    
+    let firstCopy = setup(appliedOn: structSubject)
+    let secondCopy = setup.applied(on: structSubject)
+    
+    XCTAssertEqual(firstCopy.value, secondCopy.value)
+  }
+  
+  func test_Setup_applyOn_callAndMethod_haveSameResult_forReferenceType() {
+    let secondSubject = ClassSubject()
+    let setup = Setup.of(ClassSubject.self) {
+      $0.value = 1024
+    }
+    
+    setup(applyOn: classSubject)
+    setup.apply(on: secondSubject)
+    
+    XCTAssertEqual(classSubject.value, secondSubject.value)
+  }
+  
   func test_Setup_composed_appendsModification_forValueType() {
     let expectedValue = 1024
     let setup = Setup
