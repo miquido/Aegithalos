@@ -32,11 +32,28 @@ public extension Setup where Subject: UIView {
   @inlinable func cornerRadius(
     _ radius: CGFloat,
     corners: CACornerMask
-    = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+    = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
+    masksToBounds: Bool = false
   ) -> Setup {
     composed { (subject: Subject) in
       subject.layer.cornerRadius = radius
       subject.layer.maskedCorners = corners
+      subject.layer.masksToBounds = masksToBounds
+    }
+  }
+  
+  func shadow(
+    color: UIColor = .black,
+    opacity: Float = 0.25,
+    offset: CGSize = CGSize(width: 0, height: 2),
+    radius: CGFloat = 4
+  ) -> Setup {
+    composed { (subject: Subject) in
+      subject.layer.shadowColor = color.cgColor
+      subject.layer.shadowOpacity = opacity
+      subject.layer.shadowOffset = offset
+      subject.layer.shadowRadius = radius
+      subject.layer.masksToBounds = false
     }
   }
   
