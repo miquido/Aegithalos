@@ -20,6 +20,10 @@ public extension Setup where Subject: UIScrollView {
   @inlinable func isPagingEnabled(_ enabled: Bool) -> Setup {
     composed { (subject: Subject) in subject.isPagingEnabled = enabled }
   }
+  
+  @inlinable func bounces(_ bounces: Bool) -> Setup {
+    composed { (subject: Subject) in subject.bounces = bounces }
+  }
 }
 
 #endif
