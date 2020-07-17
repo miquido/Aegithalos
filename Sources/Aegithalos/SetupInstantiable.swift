@@ -8,10 +8,16 @@ public protocol SetupInstantiable {
 }
 
 extension Setup where Subject: SetupInstantiable {
+  
+  /// Create new instance of `Subject` applying this setup.
+  /// - returns: New instance of `Subject` after setup.
+  @inlinable public func instantiate() -> Subject {
+    callAsFunction(appliedOn: Subject.instantiateForSetup())
+  }
 
   /// Create new instance of `Subject` applying this setup.
   /// - returns: New instance of `Subject` after setup.
-  @inlinable func callAsFunction() -> Subject {
+  @inlinable public func callAsFunction() -> Subject {
     callAsFunction(appliedOn: Subject.instantiateForSetup())
   }
 }
