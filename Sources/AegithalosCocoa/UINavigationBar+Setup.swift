@@ -39,7 +39,6 @@ public extension Setup where Subject: UINavigationBar {
     composed { (subject: Subject) in subject.prefersLargeTitles = preferes }
   }
   
-  
   @inlinable func titleTextAttributes(_ attributes: Dictionary<NSAttributedString.Key, Any>) -> Setup {
     composed { (subject: Subject) in subject.titleTextAttributes = attributes }
   }
