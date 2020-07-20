@@ -23,8 +23,8 @@ public extension Setup where Subject: UISearchController {
   }
   
   @inlinable func searchBarSetup(_ setup: Setup<UISearchBar>) -> Setup {
-     setup.contramap(\Subject.searchBar)
-   }
+    setup.contramap(\Subject.searchBar)
+  }
 }
 
 #endif
