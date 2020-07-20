@@ -20,6 +20,10 @@ public extension Setup where Subject: UIControl {
   @inlinable func action(_ closure: @escaping () -> Void, for event: UIControl.Event = .touchUpInside) -> Setup {
     composed { (subject: Subject) in subject.addAction(closure, for: event) }
   }
+  
+  @inlinable func action(_ closure: @escaping (Subject) -> Void, for event: UIControl.Event = .touchUpInside) -> Setup {
+    composed { (subject: Subject) in subject.addAction({ [weak subject] in subject.map(closure) }, for: event ) }
+  }
 }
 
 #endif

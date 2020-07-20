@@ -44,6 +44,10 @@ public extension Setup where Subject: UITextField {
   @inlinable func autocapitalizationType(_ autocapitalizationType: UITextAutocapitalizationType) -> Setup {
     composed { (subject: Subject) in subject.autocapitalizationType = autocapitalizationType }
   }
+  
+  @inlinable func delegate(_ delegate: UITextFieldDelegate) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in subject.delegate = delegate }
+  }
 }
 
 #endif

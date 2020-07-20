@@ -24,6 +24,10 @@ public extension Setup where Subject: UIScrollView {
   @inlinable func bounces(_ bounces: Bool) -> Setup {
     composed { (subject: Subject) in subject.bounces = bounces }
   }
+  
+  @inlinable func delegate(_ delegate: UIScrollViewDelegate) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in subject.delegate = delegate }
+  }
 }
 
 #endif
