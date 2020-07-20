@@ -2,7 +2,7 @@
 
 import UIKit
 
-internal extension UIControl {
+public extension UIControl {
   
   /// - warning: Closure will never be released until its holder (this UIControl) becomes released.
   /// However you can still remove it from being executed for given event using `removeTarget(_:action:for:)` method.
