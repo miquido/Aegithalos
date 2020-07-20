@@ -60,6 +60,10 @@ public extension Setup where Subject: UITextView {
   @inlinable func textAlignment(_ alignment: NSTextAlignment) -> Setup {
     composed { (subject: Subject) in subject.textAlignment = alignment }
   }
+  
+  @inlinable func delegate(_ delegate: UITextViewDelegate) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in subject.delegate = delegate }
+  }
 }
 
 #endif

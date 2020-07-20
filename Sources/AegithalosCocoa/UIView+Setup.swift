@@ -5,7 +5,7 @@ import Aegithalos
 
 extension UIView: SetupInstantiable {
 
-  public static func instantiateForSetup() -> Self {
+  public class func instantiateForSetup() -> Self {
     Self()
   }
 }
