@@ -53,6 +53,10 @@ public extension Setup where Subject: UISearchBar {
     }
   }
   
+  @inlinable func delegate(_ delegate: UISearchBarDelegate) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in subject.delegate = delegate }
+  }
+  
   @available(iOS 13.0, *)
   @inlinable func searchTextFieldAction(_ closure: @escaping (UISearchTextField) -> Void, for event: UIControl.Event = .touchUpInside) -> Setup {
     Setup<UISearchTextField>
