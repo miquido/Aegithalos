@@ -47,6 +47,24 @@ public extension Setup where Subject: UISearchBar {
     }
   }
   
+  @inlinable func tintColor(_ color: UIColor) -> Setup {
+    composed { (subject: Subject) in subject.tintColor = color }
+  }
+  
+  @inlinable func barTintColor(_ color: UIColor) -> Setup {
+    composed { (subject: Subject) in subject.barTintColor = color }
+  }
+  
+  @inlinable func backgroundImage(
+    _ image: UIImage?,
+    for position: UIBarPosition = .any,
+    barMetrics: UIBarMetrics = .default
+  ) -> Setup {
+    composed { (subject: Subject) in
+      subject.setBackgroundImage(image, for: position, barMetrics: barMetrics)
+    }
+  }
+  
   @inlinable func showsCancelButton(_ shows: Bool) -> Setup {
     composed { (subject: Subject) in
       subject.showsCancelButton = shows

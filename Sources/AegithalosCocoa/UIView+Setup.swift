@@ -118,126 +118,216 @@ public extension Setup where Subject: UIView {
    }
   
   @inlinable func top(
-    equalTo anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.topAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.topAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.topAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.topAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func bottom(
-    equalTo anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.bottomAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.bottomAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.bottomAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.bottomAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func centerY(
-    equalTo anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.centerYAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.centerYAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.centerYAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.centerYAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func left(
-    equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.leftAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.leftAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.leftAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.leftAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func leading(
-    equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.leadingAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.leadingAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.leadingAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.leadingAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func right(
-    equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.rightAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.rightAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.rightAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.rightAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func trailing(
-    equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.trailingAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.trailingAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.trailingAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.trailingAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func centerX(
-    equalTo anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
-      let constraint = subject.centerXAnchor.constraint(equalTo: anchor, constant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.centerXAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.centerXAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.centerXAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func width(
-    equalTo constant: CGFloat,
+    _ relation: LayoutConstraintRelation = .equalTo,
+    _ constant: CGFloat,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { (subject: Subject) in
-      let constraint = subject.widthAnchor.constraint(equalToConstant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.widthAnchor.constraint(equalToConstant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.widthAnchor.constraint(lessThanOrEqualToConstant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.widthAnchor.constraint(greaterThanOrEqualToConstant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
   }
   
   @inlinable func height(
-    equalTo constant: CGFloat,
+    _ relation: LayoutConstraintRelation = .equalTo,
+    _ constant: CGFloat,
     priority: UILayoutPriority = .required
   ) -> Setup {
     composed { (subject: Subject) in
-      let constraint = subject.heightAnchor.constraint(equalToConstant: constant)
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.heightAnchor.constraint(equalToConstant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.heightAnchor.constraint(lessThanOrEqualToConstant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.heightAnchor.constraint(greaterThanOrEqualToConstant: constant)
+      }
       constraint.priority = priority
       constraint.isActive = true
     }
@@ -275,13 +365,13 @@ public extension Setup where Subject: UIView {
     }
   }
   
-  @inlinable func hugging(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
+  @inlinable func contentHugging(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
     composed { (subject: Subject) in
       subject.setContentHuggingPriority(priority, for: axis)
     }
   }
   
-  @inlinable func compressionResistance(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
+  @inlinable func contentCompressionResistance(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
     composed { (subject: Subject) in
       subject.setContentCompressionResistancePriority(priority, for: axis)
     }
