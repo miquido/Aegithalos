@@ -333,6 +333,48 @@ public extension Setup where Subject: UIView {
     }
   }
   
+  @inlinable func width(
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutDimension>,
+    constant: CGFloat = 0,
+    priority: UILayoutPriority = .required
+  ) -> Setup {
+    composed { (subject: Subject) in
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.widthAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.widthAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.widthAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
+      constraint.priority = priority
+      constraint.isActive = true
+    }
+  }
+  
+  @inlinable func height(
+    _ relation: LayoutConstraintRelation,
+    _ anchor: NSLayoutAnchor<NSLayoutDimension>,
+    constant: CGFloat = 0,
+    priority: UILayoutPriority = .required
+  ) -> Setup {
+    composed { (subject: Subject) in
+      let constraint: NSLayoutConstraint
+      switch relation {
+      case .equalTo:
+        constraint = subject.heightAnchor.constraint(equalTo: anchor, constant: constant)
+      case .lessThanOrEqualTo:
+        constraint = subject.heightAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+      case .greaterThanOrEqualTo:
+        constraint = subject.heightAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+      }
+      constraint.priority = priority
+      constraint.isActive = true
+    }
+  }
+  
   @inlinable func edges(
     equalTo other: UIView,
     insets: UIEdgeInsets = .zero,
