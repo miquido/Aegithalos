@@ -34,7 +34,7 @@ public extension Setup where Subject: UIBarButtonItem {
       // To avoid subclassing or external storage we keep that as assocaiated object.
       objc_setAssociatedObject(
         subject,
-        UnsafeRawPointer(actionKeyPointer),
+        barButtonItemActionAssociationKeyPointer,
         closureHolder,
         .OBJC_ASSOCIATION_RETAIN_NONATOMIC
       )
@@ -43,6 +43,6 @@ public extension Setup where Subject: UIBarButtonItem {
 }
 
 // Allocate a single byte for objc associated object key.
-@usableFromInline internal let actionKeyPointer = UnsafeMutableRawPointer.allocate(byteCount: 1, alignment: 0)
+@usableFromInline internal let barButtonItemActionAssociationKeyPointer = UnsafeRawPointer(UnsafeMutableRawPointer.allocate(byteCount: 1, alignment: 0))
 
 #endif
