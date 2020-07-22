@@ -18,11 +18,23 @@ public extension Setup where Subject: UIButton {
   
   @inlinable func title(
     localized key: String,
-    localizationComment: String = "",
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    value: String = "",
+    localizationComment comment: String = "",
     forState state: UIControl.State = .normal
   ) -> Setup {
     composed { (subject: Subject) in
-      subject.setTitle(NSLocalizedString(key, comment: localizationComment), for: state)
+      subject.setTitle(
+        NSLocalizedString(
+          key,
+          tableName: tableName,
+          bundle: bundle,
+          value: value,
+          comment: comment
+        ),
+        for: state
+      )
     }
   }
   
