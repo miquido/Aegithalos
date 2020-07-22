@@ -5,8 +5,26 @@ import Aegithalos
 
 public extension Setup where Subject: UITabBarItem {
   
-  @inlinable func badgeValue(_ text: String) -> Setup {
-    composed { (subject: Subject) in subject.badgeValue = text }
+  @inlinable func badgeValue(_ string: String) -> Setup {
+    composed { (subject: Subject) in subject.badgeValue = string }
+  }
+  
+  @inlinable func badgeValue(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    value: String = "",
+    localizationComment comment: String = ""
+  ) -> Setup {
+    composed { (subject: Subject) in
+      subject.badgeValue = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        value: value,
+        comment: comment
+      )
+    }
   }
   
   @inlinable func badgeColor(_ color: UIColor) -> Setup {

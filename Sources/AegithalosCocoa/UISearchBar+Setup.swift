@@ -5,15 +5,25 @@ import Aegithalos
 
 public extension Setup where Subject: UISearchBar {
     
-  @inlinable func placeholder(_ text: String) -> Setup {
-    composed { (subject: Subject) in
-      subject.placeholder = text
-    }
+  @inlinable func placeholder(_ string: String) -> Setup {
+    composed { (subject: Subject) in subject.placeholder = string }
   }
   
-  @inlinable func placeholder(localized key: String, localizationComment: String = "") -> Setup {
+  @inlinable func placeholder(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    value: String = "",
+    localizationComment comment: String = ""
+  ) -> Setup {
     composed { (subject: Subject) in
-      subject.placeholder = NSLocalizedString(key, comment: localizationComment)
+      subject.placeholder = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        value: value,
+        comment: comment
+      )
     }
   }
   

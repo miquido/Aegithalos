@@ -9,8 +9,22 @@ public extension Setup where Subject: UILabel {
     composed { (subject: Subject) in subject.text = string }
   }
   
-  @inlinable func text(localized key: String, localizationComment: String = "") -> Setup {
-    composed { (subject: Subject) in subject.text = NSLocalizedString(key, comment: localizationComment) }
+  @inlinable func text(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    value: String = "",
+    localizationComment comment: String = ""
+  ) -> Setup {
+    composed { (subject: Subject) in
+      subject.text = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        value: value,
+        comment: comment
+      )
+    }
   }
   
   @inlinable func attributedText(_ attributedString: NSAttributedString) -> Setup {
