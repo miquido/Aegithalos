@@ -122,7 +122,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -138,6 +139,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -146,7 +148,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -162,6 +165,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -170,7 +174,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -186,6 +191,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -194,7 +200,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -210,6 +217,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -218,7 +226,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -234,6 +243,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -242,7 +252,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -258,6 +269,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -266,7 +278,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -282,6 +295,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -290,7 +304,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutXAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -306,6 +321,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -313,7 +329,8 @@ public extension Setup where Subject: UIView {
     _ relation: LayoutConstraintRelation = .equalTo,
     _ constant: CGFloat,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -328,6 +345,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -335,7 +353,8 @@ public extension Setup where Subject: UIView {
     _ relation: LayoutConstraintRelation = .equalTo,
     _ constant: CGFloat,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -350,6 +369,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -358,7 +378,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutDimension>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -373,6 +394,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
@@ -381,7 +403,8 @@ public extension Setup where Subject: UIView {
     _ anchor: NSLayoutAnchor<NSLayoutDimension>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
-    identifier: String? = nil
+    identifier: String? = nil,
+    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -396,6 +419,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
+      constraintReference?.pointee = constraint
     }
   }
   
