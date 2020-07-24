@@ -117,9 +117,9 @@ public extension Setup where Subject: UIView {
      }
    }
   
-  @inlinable func subview(of view: UIView) -> Setup {
-    composed { (subject: Subject) in
-      view.addSubview(subject)
+  @inlinable func subview(of other: UIView) -> Setup {
+    composed { [unowned other] (subject: Subject) in
+      other.addSubview(subject)
     }
   }
   
