@@ -117,6 +117,12 @@ public extension Setup where Subject: UIView {
      }
    }
   
+  @inlinable func subview(of other: UIView) -> Setup {
+    composed { [unowned other] (subject: Subject) in
+      other.addSubview(subject)
+    }
+  }
+  
   @inlinable func top(
     _ relation: LayoutConstraintRelation,
     _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
