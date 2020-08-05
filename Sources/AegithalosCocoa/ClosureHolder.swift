@@ -5,15 +5,15 @@ import Foundation
 @usableFromInline internal class ClosureHolder {
   
   private let closure: (Any?) -> Void
-  private let cleanup: () -> Void
+  private let cleanup: (() -> Void)?
   
-  @usableFromInline internal init(_ closure: @escaping (Any?) -> Void, cleanup: @escaping () -> Void) {
+  @usableFromInline internal init(_ closure: @escaping (Any?) -> Void, cleanup: (() -> Void)? = nil) {
     self.closure = closure
     self.cleanup = cleanup
   }
   
   deinit {
-    cleanup()
+    cleanup?()
   }
   
   @usableFromInline @objc internal func invoke(with any: Any) {

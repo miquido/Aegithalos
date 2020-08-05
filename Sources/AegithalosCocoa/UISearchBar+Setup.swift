@@ -81,6 +81,60 @@ public extension Setup where Subject: UISearchBar {
     }
   }
   
+  @inlinable func searchBarStyle(_ style: UISearchBar.Style) -> Setup {
+      composed { (subject: Subject) in
+          subject.searchBarStyle = style
+      }
+  }
+  
+  @inlinable func returnKeyType(_ type: UIReturnKeyType) -> Setup {
+      composed { (subject: Subject) in
+          subject.returnKeyType = type
+      }
+  }
+  
+  @inlinable func searchFieldBackgroundImage(
+      _ image: UIImage?,
+      forState state: UIControl.State = .normal
+  ) -> Setup {
+      composed { (subject: Subject) in
+          subject.setSearchFieldBackgroundImage(image, for: state)
+      }
+  }
+  
+  @inlinable func searchFieldBackgroundImage(
+      named imageName: String,
+      from bundle: Bundle? = nil,
+      compatibleWith traitCollection: UITraitCollection? = nil,
+      forState state: UIControl.State = .normal
+  ) -> Setup {
+      composed { (subject: Subject) in
+          subject.setSearchFieldBackgroundImage(
+              UIImage(
+                  named: imageName,
+                  in: bundle,
+                  compatibleWith: traitCollection
+              ),
+              for: state
+          )
+      }
+  }
+  
+  @inlinable func searchTextPositionAdjustment(_ adjustment: UIOffset) -> Setup {
+      composed { (subject: Subject) in
+          subject.searchTextPositionAdjustment = adjustment
+      }
+  }
+  
+  @inlinable func setPositionAdjustment(
+      _ offset: UIOffset,
+      forIcon icon: UISearchBar.Icon
+  ) -> Setup {
+      composed { (subject: Subject) in
+          subject.setPositionAdjustment(offset, for: icon)
+      }
+  }
+  
   @inlinable func delegate(_ delegate: UISearchBarDelegate) -> Setup {
     composed { [unowned delegate] (subject: Subject) in subject.delegate = delegate }
   }
