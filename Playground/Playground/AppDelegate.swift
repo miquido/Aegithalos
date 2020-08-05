@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Playground
-//
-//  Created by Kacper Kalinski on 8/5/20.
-//  Copyright © 2020 Miquido. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
