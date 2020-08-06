@@ -82,63 +82,63 @@ public extension Setup where Subject: UISearchBar {
   }
   
   @inlinable func searchBarStyle(_ style: UISearchBar.Style) -> Setup {
-      composed { (subject: Subject) in
-          subject.searchBarStyle = style
-      }
+    composed { (subject: Subject) in
+      subject.searchBarStyle = style
+    }
   }
   
   @inlinable func returnKeyType(_ type: UIReturnKeyType) -> Setup {
-      composed { (subject: Subject) in
-          subject.returnKeyType = type
-      }
+    composed { (subject: Subject) in
+      subject.returnKeyType = type
+    }
   }
   
   @inlinable func searchFieldBackgroundImage(
-      _ image: UIImage?,
-      forState state: UIControl.State = .normal
+    _ image: UIImage?,
+    forState state: UIControl.State = .normal
   ) -> Setup {
-      composed { (subject: Subject) in
-          subject.setSearchFieldBackgroundImage(image, for: state)
-      }
+    composed { (subject: Subject) in
+      subject.setSearchFieldBackgroundImage(image, for: state)
+    }
   }
   
   @inlinable func searchFieldBackgroundImage(
-      named imageName: String,
-      from bundle: Bundle? = nil,
-      compatibleWith traitCollection: UITraitCollection? = nil,
-      forState state: UIControl.State = .normal
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forState state: UIControl.State = .normal
   ) -> Setup {
-      composed { (subject: Subject) in
-          subject.setSearchFieldBackgroundImage(
-              UIImage(
-                  named: imageName,
-                  in: bundle,
-                  compatibleWith: traitCollection
-              ),
-              for: state
-          )
-      }
+    composed { (subject: Subject) in
+      subject.setSearchFieldBackgroundImage(
+        UIImage(
+          named: imageName,
+          in: bundle,
+          compatibleWith: traitCollection
+        ),
+        for: state
+      )
+    }
   }
   
   @inlinable func searchTextPositionAdjustment(_ adjustment: UIOffset) -> Setup {
-      composed { (subject: Subject) in
-          subject.searchTextPositionAdjustment = adjustment
-      }
+    composed { (subject: Subject) in
+      subject.searchTextPositionAdjustment = adjustment
+    }
   }
   
   @inlinable func iconPositionAdjustment(
-      _ offset: UIOffset,
-      for icon: UISearchBar.Icon
+    _ offset: UIOffset,
+    for icon: UISearchBar.Icon
   ) -> Setup {
-      composed { (subject: Subject) in
-          subject.setPositionAdjustment(offset, for: icon)
-      }
+    composed { (subject: Subject) in
+      subject.setPositionAdjustment(offset, for: icon)
+    }
   }
   
   @inlinable func delegate(_ delegate: UISearchBarDelegate) -> Setup {
     composed { [unowned delegate] (subject: Subject) in subject.delegate = delegate }
   }
-
+  
   @available(iOS 13.0, *)
   @inlinable func searchTextFieldSetup(_ setup: Setup<UISearchTextField>) -> Setup {
     setup.contramap(\Subject.searchTextField)

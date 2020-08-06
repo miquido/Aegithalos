@@ -491,15 +491,17 @@ public extension Setup where Subject: UIView {
     cancelsTouchesInView: Bool = false,
     delaysTouchesBegan: Bool = false,
     delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
     delegate: UIGestureRecognizerDelegate? = nil,
     referenceOutput: UnsafeMutablePointer<UITapGestureRecognizer?>? = nil,
     _ closure: @escaping (UITapGestureRecognizer) -> Void
   ) -> Setup {
     composed { [unowned delegate] (subject: Subject) in
       let gestureRecognizer = UITapGestureRecognizer()
-      gestureRecognizer.delegate = delegate
       gestureRecognizer.numberOfTapsRequired = requiredTaps
       gestureRecognizer.numberOfTouchesRequired = requiredTouches
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
       gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
       gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
       gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
@@ -517,15 +519,17 @@ public extension Setup where Subject: UIView {
     cancelsTouchesInView: Bool = false,
     delaysTouchesBegan: Bool = false,
     delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
     delegate: UIGestureRecognizerDelegate? = nil,
     referenceOutput: UnsafeMutablePointer<UISwipeGestureRecognizer?>? = nil,
     _ closure: @escaping (UISwipeGestureRecognizer) -> Void
   ) -> Setup {
     composed { [unowned delegate] (subject: Subject) in
       let gestureRecognizer = UISwipeGestureRecognizer()
-      gestureRecognizer.delegate = delegate
       gestureRecognizer.numberOfTouchesRequired = requiredTouches
       gestureRecognizer.direction = direction
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
       gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
       gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
       gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
@@ -538,15 +542,21 @@ public extension Setup where Subject: UIView {
   }
   
   @inlinable func panGesture(
+    minimumTouches: Int = 1,
+    maximumTouches: Int = .max,
     cancelsTouchesInView: Bool = false,
     delaysTouchesBegan: Bool = false,
     delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
     delegate: UIGestureRecognizerDelegate? = nil,
     referenceOutput: UnsafeMutablePointer<UIPanGestureRecognizer?>? = nil,
     _ closure: @escaping (UIPanGestureRecognizer) -> Void
   ) -> Setup {
     composed { [unowned delegate] (subject: Subject) in
       let gestureRecognizer = UIPanGestureRecognizer()
+      gestureRecognizer.minimumNumberOfTouches = minimumTouches
+      gestureRecognizer.maximumNumberOfTouches = maximumTouches
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
       gestureRecognizer.delegate = delegate
       gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
       gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
@@ -563,12 +573,14 @@ public extension Setup where Subject: UIView {
     cancelsTouchesInView: Bool = false,
     delaysTouchesBegan: Bool = false,
     delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
     delegate: UIGestureRecognizerDelegate? = nil,
     referenceOutput: UnsafeMutablePointer<UIPinchGestureRecognizer?>? = nil,
     _ closure: @escaping (UIPinchGestureRecognizer) -> Void
   ) -> Setup {
     composed { [unowned delegate] (subject: Subject) in
       let gestureRecognizer = UIPinchGestureRecognizer()
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
       gestureRecognizer.delegate = delegate
       gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
       gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
@@ -586,6 +598,7 @@ public extension Setup where Subject: UIView {
     cancelsTouchesInView: Bool = false,
     delaysTouchesBegan: Bool = false,
     delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
     delegate: UIGestureRecognizerDelegate? = nil,
     referenceOutput: UnsafeMutablePointer<UIScreenEdgePanGestureRecognizer?>? = nil,
     _ closure: @escaping (UIScreenEdgePanGestureRecognizer) -> Void
@@ -593,6 +606,7 @@ public extension Setup where Subject: UIView {
     composed { [unowned delegate] (subject: Subject) in
       let gestureRecognizer = UIScreenEdgePanGestureRecognizer()
       gestureRecognizer.edges = edges
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
       gestureRecognizer.delegate = delegate
       gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
       gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
@@ -613,6 +627,7 @@ public extension Setup where Subject: UIView {
     cancelsTouchesInView: Bool = false,
     delaysTouchesBegan: Bool = false,
     delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
     delegate: UIGestureRecognizerDelegate? = nil,
     referenceOutput: UnsafeMutablePointer<UILongPressGestureRecognizer?>? = nil,
     _ closure: @escaping (UILongPressGestureRecognizer) -> Void
@@ -623,6 +638,7 @@ public extension Setup where Subject: UIView {
       gestureRecognizer.numberOfTouchesRequired = requiredTouches
       gestureRecognizer.minimumPressDuration = minimumPressDuration
       gestureRecognizer.allowableMovement = allowableMovement
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
       gestureRecognizer.delegate = delegate
       gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
       gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
