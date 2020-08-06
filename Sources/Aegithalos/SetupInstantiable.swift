@@ -12,7 +12,7 @@ public extension Setup where Subject: SetupInstantiable {
   /// Create new instance of `Subject` applying this setup.
   /// - returns: New instance of `Subject` after setup.
   @inlinable func instantiate() -> Subject {
-    self()
+    callAsFunction()
   }
 
   /// Create new instance of `Subject` applying this setup.
