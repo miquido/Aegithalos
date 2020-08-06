@@ -25,8 +25,8 @@ public extension Setup {
   
   /// Type specifying instance of `Setup`. Does not apply any mutation by default allowing further composition.
   /// - parameter setup: Mutation function wrapped by this `Setup`. Empty function by default.
-  /// - note: It is preffered to prepare `Setup` and specify `Subject` type by using this function
-  /// instead of explicit type specification. `Setup.of(SomeType.self)` is preffered over `Setup<SomeType>`.
+  /// - note: It is preferred to prepare `Setup` and specify `Subject` type by using this function
+  /// instead of explicit type specification. `Setup.of(SomeType.self)` is preferred over `Setup<SomeType>`.
   @inlinable static func of(
     _: Subject.Type,
     _ setup: @escaping (inout Subject) -> Void = { _ in }
@@ -38,7 +38,7 @@ public extension Setup {
   /// - parameter subject: Subject on which this setup will be applied on. Mutations will be applied directly on subject.
   /// - parameter setup: Function allowing specification of `Setup` instance that will be applied on subject.
   /// `Setup` instance passed as argument is empty instance for fluent api application, might be ignored otherwise.
-  /// - warning: `Setup` instance used as setup function argument is not ment to be used outside of this function.
+  /// - warning: `Setup` instance used as setup function argument is not meant to be used outside of this function.
   @inlinable static func on(_ subject: inout Subject, _ setup: (Setup) -> Setup) {
     setup(Setup.of(Subject.self)).apply(on: &subject)
   }
@@ -48,7 +48,7 @@ public extension Setup {
   /// - parameter setup: Function allowing specification of `Setup` instance that will be applied on subject.
   /// `Setup` instance passed as argument is empty instance for fluent api application, might be ignored otherwise.
   /// - returns: `Subject` instance that is copy of subject passed as argument with all setup functions applied.
-  /// - warning: `Setup` instance used as setup function argument is not ment to be used outside of this function.
+  /// - warning: `Setup` instance used as setup function argument is not meant to be used outside of this function.
   @inlinable static func from(_ subject: Subject, _ setup: (Setup) -> Setup) -> Subject {
     setup(Setup.of(Subject.self)).applied(on: subject)
   }
@@ -123,7 +123,7 @@ public extension Setup where Subject: AnyObject {
   /// - parameter subject: Subject on which this setup will be applied on. Mutations will be applied directly on subject.
   /// - parameter setup: Function allowing specification of `Setup` instance that will be applied on subject.
   /// `Setup` instance passed as argument is empty instance for fluent api application, might be ignored otherwise.
-  /// - warning: `Setup` instance used as setup function argument is not ment to be used outside of this function.
+  /// - warning: `Setup` instance used as setup function argument is not meant to be used outside of this function.
   @inlinable static func on(_ subject: Subject, _ setup: (Setup) -> Setup) {
     setup(Setup.of(Subject.self)).apply(on: subject)
   }
