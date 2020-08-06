@@ -126,9 +126,9 @@ public extension Setup where Subject: UISearchBar {
       }
   }
   
-  @inlinable func setPositionAdjustment(
+  @inlinable func iconPositionAdjustment(
       _ offset: UIOffset,
-      forIcon icon: UISearchBar.Icon
+      for icon: UISearchBar.Icon
   ) -> Setup {
       composed { (subject: Subject) in
           subject.setPositionAdjustment(offset, for: icon)
