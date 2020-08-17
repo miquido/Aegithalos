@@ -7,8 +7,6 @@ Aegithalos is a small library focused on composition of mutating functions. It i
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-green.svg)](https://github.com/apple/swift-package-manager)
 [![Platforms](https://img.shields.io/badge/platform-iOS%20|%20iPadOS%20|%20macOS-blue.svg?style=flat)]()
 
-
-
 ## Instalation
 
 Easiest way to use Aegithalos is to add it as you Swift package dependency:
