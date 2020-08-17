@@ -1,6 +1,11 @@
-#  Aegithalos
+<p align="center">
+  <img src="./logo.png" height="250">
+</p>
 
 Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
+
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-green.svg)](https://github.com/apple/swift-package-manager)
+[![Platforms](https://img.shields.io/badge/platform-iOS%20|%20iPadOS%20|%20macOS-blue.svg?style=flat)]()
 
 ## Instalation
 
@@ -10,11 +15,11 @@ Easiest way to use Aegithalos is to add it as you Swift package dependency:
 .package(url: "https://github.com/miquido/aegithalos.git", from: "1.0.0")
 ```
 
-You can also use Xcode add SPM dependency option using this URL: `https://github.com/miquido/aegithalos.git`.
+You can also use Xcode add SPM dependency option using this URL: `https://github.com/miquido/aegithalos.git`
 
 ## Common usage
 
-Main component of this library is `Setup` struct. It is used to encapsulate and compose mutating functions. You can use it to just  define some kind of setup function that can be passed around and applied on multiple subjects. For example - to prepare common style for UILabel applied on different screens in your application.
+Main component of this library is `Setup` struct. It is used to encapsulate and compose mutating functions. You can use it to define any kind of setup function that can be passed around and applied on multiple subjects. For example - to prepare common style for UILabel applied on different screens in your application.
 
 ```swift
 let labelSetup = Setup.of(UILabel.self) { label in
@@ -32,11 +37,15 @@ let labelAfterSetup = labelSetup(appliedOn: UILabel())
 Moreover setup can be composed to refine and reuse common components and apply large set of settings on complicated subjects.
 
 ```swift
-let baseLabelSetup = Setup.of(UILabel.self) { label in /* do some base setup */ }
-let errorLabelSetup = baseLabelSetup.composed { label in /* add setup for errors */ }
+let baseLabelSetup = Setup.of(UILabel.self) { label in 
+  /* do some base setup */ 
+}
+let errorLabelSetup = baseLabelSetup.composed { label in 
+  /* add setup for errors */ 
+}
 ```
 
-Contramap allows to apply setup on more complex types. You can use keyPaths to specify path where setup will be applied on encapsulating type.
+Contramap allows to apply setup on more complex types. You can use keyPaths to specify path where setup will be applied inside encapsulating type.
 
 ```swift
 class ErrorScreen: UIView {
@@ -48,7 +57,8 @@ let errorLabelSetup = Setup.of(UILabel.self) { label in /* do some setup */ }
 let errorBackgroundSetup = Setup.of(UIView.self) { view in /* do some setup */ }
 
 let errorScreenLabelSetup = errorLabelSetup.contramap(\ErrorScreen.label)
-// unfortunatelly constraint required to allow identity keypath here is not representable in Swift
+// unfortunatelly constraint required to allow identity keypath here is not representable in Swift yet
+// you can use closure as workaround or for any additional operations that are required
 let errorScreenBackgroundSetup = errorBackgroundSetup.contramap { (error: ErrorScreen) in error }
 let errorScreenSetup = errorScreenLabelSetup.composed(with: errorScreenBackgroundSetup)
 
@@ -86,7 +96,7 @@ extension Setup where Subject: UILabel {
 }
 ```
 
-This small example allows us to prepare complex setup in more functional manner:
+This small example allows us to prepare complex setup in more declarative manner:
 
 ```swift
 let labelSetup = Setup.of(UILabel.self)
@@ -107,7 +117,9 @@ extension Setup where Subject: UILabel {
 }
 ```
 
-Aegithalos comes with set of usefull extensions for UIKit already prepared in AegithalosCocoa package. You can easily prapare any kind of ui setup with it, even layout constraints. Lets have a Signin with Apple button:
+## AegithalosCocoa
+
+Aegithalos comes with set of usefull extensions for UIKit already prepared in AegithalosCocoa package. You can easily prapare any kind of UI setup with it, even layout constraints. Lets have a Signin with Apple button:
 
 ```swift
 import AegithalosCocoa
