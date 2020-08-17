@@ -1,9 +1,10 @@
 <p align="center">
   <img src="./logo.svg" height=180>
+  <a href="https://github.com/apple/swift-package-manager">
+    <img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-green.svg">
+  </a>
+  <img src="https://img.shields.io/badge/platform-iOS%20|%20iPadOS%20|%20macOS-blue.svg?style=flat">
 </p>
-
-[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-green.svg)](https://github.com/apple/swift-package-manager)
-[![Platforms](https://img.shields.io/badge/platform-iOS%20|%20iPadOS%20|%20macOS-blue.svg?style=flat)]()
 
 Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
 
