@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="./logo.svg" height=180>
+  <img src="./logo.svg" width=600>
+</p>
+<p align="center">
   <a href="https://github.com/apple/swift-package-manager">
     <img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-green.svg">
   </a>
