@@ -1,8 +1,12 @@
-Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
-
 <p align="center">
-  <img src="logo.png" height="200">
+  <img src="logo.png" height="250">
 </p>
+
+[![Build Status](https://api.travis-ci.org/miquido/aegithalos.svg?branch=master)](https://travis-ci.org/miquido/aegithalos)
+[![Platforms](https://img.shields.io/badge/platform-iOS%20|%20iPadOS%20|%20macOS-gray.svg?style=flat)]()
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+
+Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
 
 ## Instalation
 
