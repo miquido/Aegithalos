@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="./logo.png" height="250">
-</p>
+# ![Aegithalos](./logo.png)
 
 Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
 
