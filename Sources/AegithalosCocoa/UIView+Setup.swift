@@ -123,13 +123,19 @@ public extension Setup where Subject: UIView {
     }
   }
   
+  @inlinable func arrangedSubview(of stackView: UIStackView) -> Setup {
+    composed { [unowned stackView] (subject: Subject) in
+      stackView.addArrangedSubview(subject)
+    }
+  }
+  
   @inlinable func top(
     _ relation: LayoutConstraintRelation,
     _ anchor: NSLayoutAnchor<NSLayoutYAxisAnchor>,
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -145,7 +151,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -155,7 +161,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -171,7 +177,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -181,7 +187,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -197,7 +203,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -207,7 +213,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -223,7 +229,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -233,7 +239,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -249,7 +255,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -259,7 +265,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -275,7 +281,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -285,7 +291,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -301,7 +307,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -311,7 +317,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { [unowned anchor] (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
@@ -327,7 +333,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -336,7 +342,7 @@ public extension Setup where Subject: UIView {
     _ constant: CGFloat,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -351,7 +357,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -360,7 +366,7 @@ public extension Setup where Subject: UIView {
     _ constant: CGFloat,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -375,7 +381,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -385,7 +391,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -400,7 +406,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -410,7 +416,7 @@ public extension Setup where Subject: UIView {
     constant: CGFloat = 0,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
-    constraintReference: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
+    referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Setup {
     composed { (subject: Subject) in
       let constraint: NSLayoutConstraint
@@ -425,7 +431,7 @@ public extension Setup where Subject: UIView {
       constraint.priority = priority
       constraint.isActive = true
       constraint.identifier = identifier
-      constraintReference?.pointee = constraint
+      referenceOutput?.pointee = constraint
     }
   }
   
@@ -470,6 +476,178 @@ public extension Setup where Subject: UIView {
   @inlinable func contentCompressionResistance(_ axis: NSLayoutConstraint.Axis, priority: UILayoutPriority) -> Setup {
     composed { (subject: Subject) in
       subject.setContentCompressionResistancePriority(priority, for: axis)
+    }
+  }
+  
+  @inlinable func gestureRecognizer(_ recognizer: UIGestureRecognizer) -> Setup {
+    composed { [unowned recognizer] (subject: Subject) in
+      subject.addGestureRecognizer(recognizer)
+    }
+  }
+  
+  @inlinable func tapGesture(
+    requiredTaps: Int = 1,
+    requiredTouches: Int = 1,
+    cancelsTouchesInView: Bool = false,
+    delaysTouchesBegan: Bool = false,
+    delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
+    delegate: UIGestureRecognizerDelegate? = nil,
+    referenceOutput: UnsafeMutablePointer<UITapGestureRecognizer?>? = nil,
+    _ closure: @escaping (UITapGestureRecognizer) -> Void
+  ) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in
+      let gestureRecognizer = UITapGestureRecognizer()
+      gestureRecognizer.numberOfTapsRequired = requiredTaps
+      gestureRecognizer.numberOfTouchesRequired = requiredTouches
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
+      gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
+      gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
+      gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
+      let closureHolder = ClosureHolder({ [unowned gestureRecognizer] _ in closure(gestureRecognizer) })
+      gestureRecognizer.addTarget(closureHolder, action: #selector(ClosureHolder.invoke(with:)))
+      gestureRecognizer.associate(closureHolder)
+      subject.addGestureRecognizer(gestureRecognizer)
+      referenceOutput?.pointee = gestureRecognizer
+    }
+  }
+  
+  @inlinable func swipeGesture(
+    _ direction: UISwipeGestureRecognizer.Direction,
+    requiredTouches: Int = 1,
+    cancelsTouchesInView: Bool = false,
+    delaysTouchesBegan: Bool = false,
+    delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
+    delegate: UIGestureRecognizerDelegate? = nil,
+    referenceOutput: UnsafeMutablePointer<UISwipeGestureRecognizer?>? = nil,
+    _ closure: @escaping (UISwipeGestureRecognizer) -> Void
+  ) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in
+      let gestureRecognizer = UISwipeGestureRecognizer()
+      gestureRecognizer.numberOfTouchesRequired = requiredTouches
+      gestureRecognizer.direction = direction
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
+      gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
+      gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
+      gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
+      let closureHolder = ClosureHolder({ [unowned gestureRecognizer] _ in closure(gestureRecognizer) })
+      gestureRecognizer.addTarget(closureHolder, action: #selector(ClosureHolder.invoke(with:)))
+      gestureRecognizer.associate(closureHolder)
+      subject.addGestureRecognizer(gestureRecognizer)
+      referenceOutput?.pointee = gestureRecognizer
+    }
+  }
+  
+  @inlinable func panGesture(
+    minimumTouches: Int = 1,
+    maximumTouches: Int = .max,
+    cancelsTouchesInView: Bool = false,
+    delaysTouchesBegan: Bool = false,
+    delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
+    delegate: UIGestureRecognizerDelegate? = nil,
+    referenceOutput: UnsafeMutablePointer<UIPanGestureRecognizer?>? = nil,
+    _ closure: @escaping (UIPanGestureRecognizer) -> Void
+  ) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in
+      let gestureRecognizer = UIPanGestureRecognizer()
+      gestureRecognizer.minimumNumberOfTouches = minimumTouches
+      gestureRecognizer.maximumNumberOfTouches = maximumTouches
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
+      gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
+      gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
+      gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
+      let closureHolder = ClosureHolder({ [unowned gestureRecognizer] _ in closure(gestureRecognizer) })
+      gestureRecognizer.addTarget(closureHolder, action: #selector(ClosureHolder.invoke(with:)))
+      gestureRecognizer.associate(closureHolder)
+      subject.addGestureRecognizer(gestureRecognizer)
+      referenceOutput?.pointee = gestureRecognizer
+    }
+  }
+  
+  @inlinable func pinchGesture(
+    cancelsTouchesInView: Bool = false,
+    delaysTouchesBegan: Bool = false,
+    delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
+    delegate: UIGestureRecognizerDelegate? = nil,
+    referenceOutput: UnsafeMutablePointer<UIPinchGestureRecognizer?>? = nil,
+    _ closure: @escaping (UIPinchGestureRecognizer) -> Void
+  ) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in
+      let gestureRecognizer = UIPinchGestureRecognizer()
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
+      gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
+      gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
+      gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
+      let closureHolder = ClosureHolder({ [unowned gestureRecognizer] _ in closure(gestureRecognizer) })
+      gestureRecognizer.addTarget(closureHolder, action: #selector(ClosureHolder.invoke(with:)))
+      gestureRecognizer.associate(closureHolder)
+      subject.addGestureRecognizer(gestureRecognizer)
+      referenceOutput?.pointee = gestureRecognizer
+    }
+  }
+  
+  @inlinable func screenEdgePanGesture(
+    edges: UIRectEdge,
+    cancelsTouchesInView: Bool = false,
+    delaysTouchesBegan: Bool = false,
+    delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
+    delegate: UIGestureRecognizerDelegate? = nil,
+    referenceOutput: UnsafeMutablePointer<UIScreenEdgePanGestureRecognizer?>? = nil,
+    _ closure: @escaping (UIScreenEdgePanGestureRecognizer) -> Void
+  ) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in
+      let gestureRecognizer = UIScreenEdgePanGestureRecognizer()
+      gestureRecognizer.edges = edges
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
+      gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
+      gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
+      gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
+      let closureHolder = ClosureHolder({ [unowned gestureRecognizer] _ in closure(gestureRecognizer) })
+      gestureRecognizer.addTarget(closureHolder, action: #selector(ClosureHolder.invoke(with:)))
+      gestureRecognizer.associate(closureHolder)
+      subject.addGestureRecognizer(gestureRecognizer)
+      referenceOutput?.pointee = gestureRecognizer
+    }
+  }
+  
+  @inlinable func longPressGesture(
+    requiredTaps: Int = 0,
+    requiredTouches: Int = 1,
+    minimumPressDuration: TimeInterval = 0.5,
+    allowableMovement: CGFloat = 10,
+    cancelsTouchesInView: Bool = false,
+    delaysTouchesBegan: Bool = false,
+    delaysTouchesEnded: Bool = true,
+    requireToFail requiredToFail: Array<UIGestureRecognizer> = [],
+    delegate: UIGestureRecognizerDelegate? = nil,
+    referenceOutput: UnsafeMutablePointer<UILongPressGestureRecognizer?>? = nil,
+    _ closure: @escaping (UILongPressGestureRecognizer) -> Void
+  ) -> Setup {
+    composed { [unowned delegate] (subject: Subject) in
+      let gestureRecognizer = UILongPressGestureRecognizer()
+      gestureRecognizer.numberOfTapsRequired = requiredTaps
+      gestureRecognizer.numberOfTouchesRequired = requiredTouches
+      gestureRecognizer.minimumPressDuration = minimumPressDuration
+      gestureRecognizer.allowableMovement = allowableMovement
+      requiredToFail.forEach(gestureRecognizer.require(toFail:))
+      gestureRecognizer.delegate = delegate
+      gestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
+      gestureRecognizer.delaysTouchesBegan = delaysTouchesBegan
+      gestureRecognizer.delaysTouchesEnded = delaysTouchesEnded
+      let closureHolder = ClosureHolder({ [unowned gestureRecognizer] _ in closure(gestureRecognizer) })
+      gestureRecognizer.addTarget(closureHolder, action: #selector(ClosureHolder.invoke(with:)))
+      gestureRecognizer.associate(closureHolder)
+      subject.addGestureRecognizer(gestureRecognizer)
+      referenceOutput?.pointee = gestureRecognizer
     }
   }
 }
