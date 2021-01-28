@@ -243,6 +243,25 @@ final class SetupTests: XCTestCase {
     
     XCTAssertEqual(parentClassSubject.child.value, expectedValue)
   }
+  
+  func test_set_appliesValueAtKeypath_forValueType() {
+    let expectedValue = 1024
+    let setup = Setup.of(StructSubject.self).set(\.value, to: expectedValue)
+
+    setup(applyOn: &structSubject)
+    
+    XCTAssertEqual(structSubject.value, expectedValue)
+  }
+  
+  func test_set_appliesValueAtKeypath_forReferenceType() {
+    let expectedValue = 1024
+    
+    let setup = Setup.of(ClassSubject.self).set(\.value, to: expectedValue)
+    
+    setup(applyOn: classSubject)
+    
+    XCTAssertEqual(classSubject.value, expectedValue)
+  }
 }
 
 struct StructSubject {

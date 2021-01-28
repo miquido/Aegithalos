@@ -113,6 +113,19 @@ public extension Setup {
       self(applyOn: &otherSubject[keyPath: keyPath])
     }
   }
+  
+  /// Extend this `Setup` by composing it with value setting using keypath.
+  /// - parameter keyPath: KeyPath to set value.
+  /// - parameter value: Value to set on given keyPath.
+  /// - returns: New `Setup` instnce which composes this one with setting provided value at specified keyPath.
+  @inlinable func set<Value>(
+    _ keyPath: WritableKeyPath<Subject, Value>,
+    to value: Value
+  ) -> Self {
+    composed { (subject: inout Subject) in
+      subject[keyPath: keyPath] = value
+    }
+  }
 }
 
 // MARK: - Reference types
@@ -182,6 +195,19 @@ public extension Setup where Subject: AnyObject {
   where OtherSubject: AnyObject {
     .init { (otherSubject: inout OtherSubject) in
       self(applyOn: otherSubject[keyPath: keyPath])
+    }
+  }
+  
+  /// Extend this `Setup` by composing it with value setting using keypath.
+  /// - parameter keyPath: KeyPath to set value.
+  /// - parameter value: Value to set on given keyPath.
+  /// - returns: New `Setup` instnce which composes this one with setting provided value at specified keyPath.
+  @inlinable func set<Value>(
+    _ keyPath: ReferenceWritableKeyPath<Subject, Value>,
+    to value: Value
+  ) -> Self {
+    composed { (subject: Subject) in
+      subject[keyPath: keyPath] = value
     }
   }
 }
