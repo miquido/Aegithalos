@@ -8,6 +8,7 @@
 /// have inout argument.
 /// - note: You can provide fluent API for given `Subject` by preparing extension for `Setup`
 /// with given `Subject` constraint and using `compose` method.
+@available(*, deprecated, message: "Will be replaced by `Mutation` in version 2.0")
 public struct Setup<Subject> {
   
   /// Wrapped function.
