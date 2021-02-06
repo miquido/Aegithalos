@@ -145,4 +145,120 @@ public extension Setup where Subject: UISearchBar {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UISearchBar {
+  
+  @inlinable static func placeholder(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.placeholder = localized
+      } else {
+        subject.placeholder = String(
+          format: localized,
+          arguments: arguments
+        )
+      }
+    }
+  }
+  
+  @inlinable static func image(
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    withInsets insets: UIEdgeInsets = .zero,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forIcon icon: UISearchBar.Icon,
+    inState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setImage(
+        UIImage(
+          named: imageName,
+          in: bundle,
+          compatibleWith: traitCollection
+        ),
+        for: icon,
+        state: state
+      )
+    }
+  }
+  
+  @available(iOS 13.0, *)
+  @inlinable static func image(
+    symbol symbolName: String,
+    withInsets insets: UIEdgeInsets = .zero,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forIcon icon: UISearchBar.Icon,
+    inState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setImage(
+        UIImage(
+          systemName: symbolName,
+          compatibleWith: traitCollection
+        ),
+        for: icon,
+        state: state
+      )
+    }
+  }
+  
+  @inlinable static func backgroundImage(
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    for position: UIBarPosition = .any,
+    barMetrics: UIBarMetrics = .default
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setBackgroundImage(
+        UIImage(
+          named: imageName,
+          in: bundle,
+          compatibleWith: traitCollection
+        ),
+        for: position,
+        barMetrics: barMetrics
+      )
+    }
+  }
+  
+  @inlinable static func searchFieldBackgroundImage(
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setSearchFieldBackgroundImage(
+        UIImage(
+          named: imageName,
+          in: bundle,
+          compatibleWith: traitCollection
+        ),
+        for: state
+      )
+    }
+  }
+  
+  @inlinable static func iconPositionAdjustment(
+    _ offset: UIOffset,
+    for icon: UISearchBar.Icon
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setPositionAdjustment(offset, for: icon)
+    }
+  }
+}
 #endif

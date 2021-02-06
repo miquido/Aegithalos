@@ -80,4 +80,33 @@ public extension Setup where Subject: UITextView {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UITextView {
+  
+  @inlinable static func text(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.text = localized
+      } else {
+        subject.text = String(
+          format: localized,
+          arguments: arguments
+        )
+      }
+    }
+  }
+}
 #endif

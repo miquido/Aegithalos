@@ -33,9 +33,9 @@ public extension Mutation {
     }
   }
   
-  @inlinable static var none: Self { Self { _ in } }
+  @inline(__always) static var none: Self { Self { _ in } }
   
-  @inlinable static func custom(
+  @inline(__always) static func custom(
     _ mutation: @escaping (inout Subject) -> Void
   ) -> Mutation<Subject> {
     Self { subject in mutation(&subject) }
@@ -47,7 +47,7 @@ public extension Mutation {
     Self { subject in mutations.forEach { $0.apply(&subject) } }
   }
   
-  @inlinable static func set<Value>(
+  @inline(__always) static func set<Value>(
     _ kayPath: WritableKeyPath<Subject, Value>,
     to value: Value
   ) -> Self {
@@ -106,13 +106,13 @@ public extension Mutation where Subject: AnyObject {
     Mutation<OtherSubject> { otherSubject in self(otherSubject[keyPath: keyPath]) }
   }
   
-  @inlinable static func custom(
+  @inline(__always) static func custom(
     _ mutation: @escaping (Subject) -> Void
   ) -> Mutation<Subject> {
     Self { subject in mutation(subject) }
   }
   
-  @inlinable static func set<Value>(
+  @inline(__always) static func set<Value>(
     _ kayPath: ReferenceWritableKeyPath<Subject, Value>,
     to value: Value
   ) -> Self {
@@ -184,18 +184,19 @@ public extension Mutation where Subject: EmptyInstantiable {
   }
 }
 
-#if DEBUG
 public extension Mutation {
   
   @inlinable static func assert(
     _ assertion: @escaping (Subject) -> Bool,
     message: String = "Assertion failure"
   ) -> Mutation<Subject> {
-    Self { subject in Swift.assert(assertion(subject), message) }
+    #if DEBUG
+    return Self { subject in Swift.assert(assertion(subject), message) }
+    #else
+    return .none
+    #endif
   }
-  
 }
-#endif
 
 #if canImport(Dispatch)
 import enum Dispatch.DispatchPredicate

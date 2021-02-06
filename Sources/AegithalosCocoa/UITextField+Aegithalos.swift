@@ -64,4 +64,33 @@ public extension Setup where Subject: UITextField {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UITextField {
+  
+  @inlinable static func placeholder(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.placeholder = localized
+      } else {
+        subject.placeholder = String(
+          format: localized,
+          arguments: arguments
+        )
+      }
+    }
+  }
+}
 #endif

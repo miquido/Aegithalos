@@ -54,4 +54,18 @@ public extension Setup where Subject: UITabBar {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UITabBar {
+  
+  @inlinable static func item(
+    _ items: UITabBarItem...
+  ) -> Self {
+    .custom { (subject: Subject) in
+      var updatedItems = subject.items ?? []
+      updatedItems.append(contentsOf: items)
+      subject.items = updatedItems
+    }
+  }
+}
 #endif

@@ -60,4 +60,60 @@ public extension Setup where Subject: UIBarItem {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UIBarItem {
+  
+  @inlinable static func title(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.title = localized
+      } else {
+        subject.title = String(
+          format: localized,
+          arguments: arguments
+        )
+      }
+    }
+  }
+  
+  @inlinable func image(
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    compatibleWith traitCollection: UITraitCollection? = nil
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.image = UIImage(
+        named: imageName,
+        in: bundle,
+        compatibleWith: traitCollection
+      )
+    }
+  }
+  
+  @available(iOS 13.0, *)
+  @inlinable func image(
+    symbol symbolName: String,
+    compatibleWith traitCollection: UITraitCollection? = nil
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.image = UIImage(
+        systemName: symbolName,
+        compatibleWith: traitCollection
+      )
+    }
+  }
+}
+
 #endif

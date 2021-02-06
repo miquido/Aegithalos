@@ -46,4 +46,28 @@ public extension Setup where Subject: UIStackView {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UIStackView {
+  
+  @inlinable static func arrangedSubview(
+    _ views: UIView...
+  ) -> Self {
+    .custom { (subject: Subject) in
+      for view in views {
+        Swift.assert(view.superview == nil, "View reuse is usually a bug.")
+        subject.addArrangedSubview(view)
+      }
+    }
+  }
+  
+  @inlinable static func withoutArrangedSubview() -> Self {
+    .custom { (subject: Subject) in
+      subject.arrangedSubviews.forEach { arrangedSubview in
+        subject.removeArrangedSubview(arrangedSubview)
+        arrangedSubview.removeFromSuperview()
+      }
+    }
+  }
+}
 #endif

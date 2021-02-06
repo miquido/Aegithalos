@@ -47,4 +47,35 @@ public extension Setup where Subject: UIViewController {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UIViewController {
+  
+  @inlinable static func title(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.title = localized
+      } else {
+        subject.title = String(
+          format: localized,
+          arguments: arguments
+        )
+      }
+    }
+  }
+}
+
+extension UIViewController: EmptyInstantiable {}
+
 #endif

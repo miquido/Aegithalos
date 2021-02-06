@@ -52,4 +52,32 @@ public extension Setup where Subject: UILabel {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UILabel {
+  
+  @inlinable static func text(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.text = localized
+      } else {
+        subject.text = String(
+          format: localized,
+          arguments: arguments
+        )
+      }
+    }
+  }
+}
 #endif

@@ -7,7 +7,10 @@ import Foundation
   private let closure: (Any?) -> Void
   private let cleanup: (() -> Void)?
   
-  @usableFromInline internal init(_ closure: @escaping (Any?) -> Void, cleanup: (() -> Void)? = nil) {
+  @usableFromInline internal init(
+    _ closure: @escaping (Any?) -> Void,
+    cleanup: (() -> Void)? = nil
+  ) {
     self.closure = closure
     self.cleanup = cleanup
   }
@@ -16,7 +19,9 @@ import Foundation
     cleanup?()
   }
   
-  @usableFromInline @objc internal func invoke(with any: Any) {
+  @usableFromInline @objc internal func invoke(
+    with any: Any
+  ) {
     closure(any)
   }
 }

@@ -1,5 +1,4 @@
 #if canImport(UIKit)
-
 import UIKit
 import Aegithalos
 
@@ -111,5 +110,4 @@ public extension Setup where Subject: NSObject & UIAccessibilityIdentification {
     composed { (subject: Subject) in subject.accessibilityTextualContext = accessibilityTextualContext }
   }
 }
-
 #endif

@@ -26,4 +26,41 @@ public extension Setup where Subject: UIControl {
   }
 }
 
+// MARK: - Mutation
+
+public extension Mutation where Subject: UIControl {
+  
+  @inlinable static func target(
+    _ target: Any & NSObjectProtocol,
+    action: Selector,
+    for event: UIControl.Event = .touchUpInside
+  ) -> Self {
+    .custom { [unowned target] (subject: Subject) in
+      subject.addTarget(target, action: action, for: event)
+    }
+  }
+  
+  @inlinable static func action(
+    _ closure: @escaping () -> Void,
+    for event: UIControl.Event = .touchUpInside
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.addAction(closure, for: event)
+    }
+  }
+  
+  @inlinable static func action(
+    _ closure: @escaping (Subject) -> Void,
+    for event: UIControl.Event = .touchUpInside
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.addAction(
+        { [weak subject] in
+          subject.map(closure)
+        },
+        for: event
+      )
+    }
+  }
+}
 #endif

@@ -1,5 +1,4 @@
 #if canImport(UIKit)
-
 import UIKit
 import Aegithalos
 
@@ -104,6 +103,114 @@ public extension Setup where Subject: UIButton {
   ) -> Setup {
     composed { (subject: Subject) in
       subject.setImage(UIImage(systemName: symbolName, compatibleWith: traitCollection), for: state)
+      subject.imageEdgeInsets = insets
+    }
+  }
+}
+
+// MARK: - Mutation
+
+public extension Mutation where Subject: UIButton {
+  
+  @inlinable static func title(
+    _ title: String,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setTitle(title, for: state)
+    }
+  }
+  
+  @inlinable static func title(
+    localized key: String,
+    fromTable tableName: String? = nil,
+    inBundle bundle: Bundle = Bundle.main,
+    arguments: CVarArg...,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      let localized = NSLocalizedString(
+        key,
+        tableName: tableName,
+        bundle: bundle,
+        comment: ""
+      )
+      if arguments.isEmpty {
+        subject.setTitle(localized, for: state)
+      } else {
+        subject.setTitle(
+          String(
+            format: localized,
+            arguments: arguments
+          ),
+          for: state
+        )
+      }
+    }
+  }
+  
+  @inlinable static func titleColor(
+    _ color: UIColor,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setTitleColor(color, for: state)
+    }
+  }
+  
+  @inlinable static func backgroundImage(
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setBackgroundImage(
+        UIImage(
+          named: imageName,
+          in: bundle,
+          compatibleWith: traitCollection
+        ),
+        for: state
+      )
+    }
+  }
+  
+  @inlinable static func image(
+    named imageName: String,
+    from bundle: Bundle? = nil,
+    withInsets insets: UIEdgeInsets = .zero,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setImage(
+        UIImage(
+          named: imageName,
+          in: bundle,
+          compatibleWith: traitCollection
+        ),
+        for: state
+      )
+      subject.imageEdgeInsets = insets
+    }
+  }
+  
+  @available(iOS 13.0, *)
+  @inlinable static func image(
+    symbol symbolName: String,
+    withInsets insets: UIEdgeInsets = .zero,
+    compatibleWith traitCollection: UITraitCollection? = nil,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setImage(
+        UIImage(
+          systemName: symbolName,
+          compatibleWith: traitCollection
+        ),
+        for: state
+      )
       subject.imageEdgeInsets = insets
     }
   }
