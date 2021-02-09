@@ -150,14 +150,14 @@ public extension Setup where Subject: UISearchBar {
 public extension Mutation where Subject: UISearchBar {
   
   @inlinable static func placeholder(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""
@@ -174,7 +174,7 @@ public extension Mutation where Subject: UISearchBar {
   }
   
   @inlinable static func image(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     withInsets insets: UIEdgeInsets = .zero,
     compatibleWith traitCollection: UITraitCollection? = nil,
@@ -184,7 +184,7 @@ public extension Mutation where Subject: UISearchBar {
     .custom { (subject: Subject) in
       subject.setImage(
         UIImage(
-          named: imageName,
+          named: imageName.rawValue,
           in: bundle,
           compatibleWith: traitCollection
         ),
@@ -215,7 +215,7 @@ public extension Mutation where Subject: UISearchBar {
   }
   
   @inlinable static func backgroundImage(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil,
     for position: UIBarPosition = .any,
@@ -224,7 +224,7 @@ public extension Mutation where Subject: UISearchBar {
     .custom { (subject: Subject) in
       subject.setBackgroundImage(
         UIImage(
-          named: imageName,
+          named: imageName.rawValue,
           in: bundle,
           compatibleWith: traitCollection
         ),
@@ -235,7 +235,7 @@ public extension Mutation where Subject: UISearchBar {
   }
   
   @inlinable static func searchFieldBackgroundImage(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil,
     forState state: UIControl.State = .normal
@@ -243,7 +243,7 @@ public extension Mutation where Subject: UISearchBar {
     .custom { (subject: Subject) in
       subject.setSearchFieldBackgroundImage(
         UIImage(
-          named: imageName,
+          named: imageName.rawValue,
           in: bundle,
           compatibleWith: traitCollection
         ),

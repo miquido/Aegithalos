@@ -5,14 +5,14 @@ import Aegithalos
 public extension Mutation where Subject: UIAlertController {
   
   @inlinable static func title(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""
@@ -29,14 +29,14 @@ public extension Mutation where Subject: UIAlertController {
   }
   
   @inlinable static func message(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""
@@ -53,7 +53,7 @@ public extension Mutation where Subject: UIAlertController {
   }
   
   @inlinable static func action(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...,
@@ -62,7 +62,7 @@ public extension Mutation where Subject: UIAlertController {
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""

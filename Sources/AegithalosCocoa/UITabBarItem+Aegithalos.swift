@@ -72,7 +72,7 @@ public extension Setup where Subject: UITabBarItem {
 public extension Mutation where Subject: UITabBarItem {
   
   @inlinable static func badgeValue(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...,
@@ -80,7 +80,7 @@ public extension Mutation where Subject: UITabBarItem {
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""
@@ -106,13 +106,13 @@ public extension Mutation where Subject: UITabBarItem {
   }
   
   @inlinable static func selectedImage(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
     .custom { (subject: Subject) in
       subject.selectedImage = UIImage(
-        named: imageName,
+        named: imageName.rawValue,
         in: bundle,
         compatibleWith: traitCollection
       )

@@ -10,6 +10,20 @@ public struct Mutation<Subject> {
 }
 
 public extension Mutation {
+  
+  @inline(__always) func apply(
+    on subject: inout Subject
+  ) {
+    apply(&subject)
+  }
+  
+  @inline(__always) func applied(
+    on subject: Subject
+  ) -> Subject {
+    var subject = subject
+    apply(&subject)
+    return subject
+  }
 
   @inline(__always) func callAsFunction(
     _ subject: inout Subject
@@ -94,6 +108,12 @@ public extension Mutation {
 
 public extension Mutation where Subject: AnyObject {
   
+  @inline(__always) func apply(
+    on subject: Subject
+  ) {
+    apply(subject)
+  }
+  
   @inline(__always) func callAsFunction(
     _ subject: Subject
   ) {
@@ -177,7 +197,7 @@ public protocol EmptyInstantiable {
 
 public extension Mutation where Subject: EmptyInstantiable {
   
-  @inlinable func instantiate() -> Subject {
+  @inlinable @discardableResult func instantiate() -> Subject {
     var subject = Subject()
     self.apply(&subject)
     return subject

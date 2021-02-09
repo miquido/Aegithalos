@@ -65,14 +65,14 @@ public extension Setup where Subject: UINavigationItem {
 public extension Mutation where Subject: UINavigationItem {
   
   @inlinable static func title(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""

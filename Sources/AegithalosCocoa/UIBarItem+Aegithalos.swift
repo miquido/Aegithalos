@@ -65,14 +65,14 @@ public extension Setup where Subject: UIBarItem {
 public extension Mutation where Subject: UIBarItem {
   
   @inlinable static func title(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""
@@ -89,13 +89,13 @@ public extension Mutation where Subject: UIBarItem {
   }
   
   @inlinable func image(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
     .custom { (subject: Subject) in
       subject.image = UIImage(
-        named: imageName,
+        named: imageName.rawValue,
         in: bundle,
         compatibleWith: traitCollection
       )

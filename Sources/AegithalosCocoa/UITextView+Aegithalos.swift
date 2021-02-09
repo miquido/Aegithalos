@@ -85,7 +85,7 @@ public extension Setup where Subject: UITextView {
 public extension Mutation where Subject: UITextView {
   
   @inlinable static func text(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...,
@@ -93,7 +93,7 @@ public extension Mutation where Subject: UITextView {
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""

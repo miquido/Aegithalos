@@ -35,13 +35,13 @@ public extension Setup where Subject: UIImageView {
 public extension Mutation where Subject: UIImageView {
   
   @inlinable static func image(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
     .custom { (subject: Subject) in
       subject.image = UIImage(
-        named: imageName,
+        named: imageName.rawValue,
         in: bundle,
         compatibleWith: traitCollection
       )

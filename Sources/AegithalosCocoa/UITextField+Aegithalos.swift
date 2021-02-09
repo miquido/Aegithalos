@@ -69,7 +69,7 @@ public extension Setup where Subject: UITextField {
 public extension Mutation where Subject: UITextField {
   
   @inlinable static func placeholder(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...,
@@ -77,7 +77,7 @@ public extension Mutation where Subject: UITextField {
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""

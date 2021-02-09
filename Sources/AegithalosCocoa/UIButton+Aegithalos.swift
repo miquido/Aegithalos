@@ -122,7 +122,7 @@ public extension Mutation where Subject: UIButton {
   }
   
   @inlinable static func title(
-    localized key: String,
+    localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...,
@@ -130,7 +130,7 @@ public extension Mutation where Subject: UIButton {
   ) -> Self {
     .custom { (subject: Subject) in
       let localized = NSLocalizedString(
-        key,
+        key.rawValue,
         tableName: tableName,
         bundle: bundle,
         comment: ""
@@ -159,7 +159,7 @@ public extension Mutation where Subject: UIButton {
   }
   
   @inlinable static func backgroundImage(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil,
     forState state: UIControl.State = .normal
@@ -167,7 +167,7 @@ public extension Mutation where Subject: UIButton {
     .custom { (subject: Subject) in
       subject.setBackgroundImage(
         UIImage(
-          named: imageName,
+          named: imageName.rawValue,
           in: bundle,
           compatibleWith: traitCollection
         ),
@@ -177,7 +177,7 @@ public extension Mutation where Subject: UIButton {
   }
   
   @inlinable static func image(
-    named imageName: String,
+    named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     withInsets insets: UIEdgeInsets = .zero,
     compatibleWith traitCollection: UITraitCollection? = nil,
@@ -186,7 +186,7 @@ public extension Mutation where Subject: UIButton {
     .custom { (subject: Subject) in
       subject.setImage(
         UIImage(
-          named: imageName,
+          named: imageName.rawValue,
           in: bundle,
           compatibleWith: traitCollection
         ),
