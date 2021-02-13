@@ -97,6 +97,10 @@ public final class State<Value> {
         .eraseToAnyPublisher()
     )
   }
+  
+  func apply(_ mutation: Mutation<Value>) {
+    mutation.apply(self)
+  }
 }
 
 @available(OSX 10.15, iOS 13.0, *)
