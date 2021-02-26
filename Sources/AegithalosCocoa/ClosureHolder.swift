@@ -19,9 +19,7 @@ import Foundation
     cleanup?()
   }
   
-  @usableFromInline @objc internal func invoke(
-    with any: Any
-  ) {
+  @usableFromInline @objc internal func invoke(with any: Any) {
     closure(any)
   }
 }

@@ -20,7 +20,7 @@ public extension Mutation {
   @inline(__always) func apply(
     on subject: inout Subject
   ) {
-    precondition(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
+    Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
     apply(&subject)
   }
   
@@ -31,7 +31,7 @@ public extension Mutation {
   @inline(__always) func applied(
     on subject: Subject
   ) -> Subject {
-    precondition(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
+    Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
     var subject = subject
     apply(&subject)
     return subject
@@ -68,7 +68,7 @@ public extension Mutation {
   @inline(__always) static func custom(
     _ mutation: @escaping (inout Subject) -> Void
   ) -> Mutation<Subject> {
-    precondition(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
+    Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
     return Self { subject in mutation(&subject) }
   }
   
@@ -205,37 +205,6 @@ internal extension Mutation where Subject: AnyObject {
   }
 }
 
-@_functionBuilder
-public struct MutationBuilder {
-  
-  public static func buildBlock<Subject>(
-    _ mutations: Mutation<Subject>...
-  ) -> Mutation<Subject> {
-    Mutation<Subject> { subject in
-      // iteration on raw pointers is much faster than using iterators or forEach
-      mutations.withUnsafeBufferPointer { ptr -> Void in
-        var idx = 0
-        let count = ptr.count
-        while idx < count {
-          ptr[idx].apply(on: &subject)
-          idx = idx + 1
-        }
-      }
-    }
-  }
-}
-
-public extension Mutation {
-  
-  /// Create `Mutation` by combinind provided mutations.
-  /// - parameter mutationBuilder: Block called to priovide mutations combined for new `Mutation`.
-  init(
-    @MutationBuilder _ mutationBuilder: () -> Self
-  ) {
-    self = mutationBuilder()
-  }
-}
-
 /// Mutate given subject by applying provided mutation.
 /// - parameter subject: Subject that will be used for application of `Mutation`.
 /// - parameter mutationBuilder: Block called to provide `Mutation` applied on passed subject.
@@ -243,7 +212,7 @@ public extension Mutation {
   _ subject: inout Subject,
   _ mutationBuilder: () -> Mutation<Subject>
 ) {
-  precondition(!(Subject.self is AnyObject.Type), "Reference types are not supported by this function")
+  Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this function")
   mutationBuilder().apply(&subject)
 }
 

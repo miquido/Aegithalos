@@ -62,5 +62,13 @@ public extension Mutation where Subject: UIControl {
       )
     }
   }
+  
+  @inlinable static func noActions(
+    for event: UIControl.Event = .touchUpInside
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.removeTarget(nil, action: nil, for: event)
+    }
+  }
 }
 #endif
