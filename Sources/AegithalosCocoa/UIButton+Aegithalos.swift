@@ -112,6 +112,48 @@ public extension Setup where Subject: UIButton {
 
 public extension Mutation where Subject: UIButton {
   
+  @inlinable static func titleFont(_ value: UIFont) -> Self {
+    .custom { (subject: Subject) in
+      subject.titleLabel?.font = value
+    }
+  }
+  
+  @inlinable static func attributedTitle(
+    _ value: NSAttributedString,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setAttributedTitle(value, for: state)
+    }
+  }
+  
+  @inlinable static func titleInsets(_ value: UIEdgeInsets) -> Self {
+    .custom { (subject: Subject) in
+      subject.titleEdgeInsets = value
+    }
+  }
+  
+  @inlinable static func titleColor(
+    _ value: UIColor,
+    forState state: UIControl.State = .normal
+  ) -> Self {
+    .custom { (subject: Subject) in
+      subject.setTitleColor(value, for: state)
+    }
+  }
+  
+  @inlinable static func titleAlignment(_ value: NSTextAlignment) -> Self {
+    .custom { (subject: Subject) in
+      subject.titleLabel?.textAlignment = value
+    }
+  }
+  
+  @inlinable static func titleLineBreakMode(_ value: NSLineBreakMode) -> Self {
+    .custom { (subject: Subject) in
+      subject.titleLabel?.lineBreakMode = value
+    }
+  }
+  
   @inlinable static func title(
     _ title: String,
     forState state: UIControl.State = .normal
@@ -146,15 +188,6 @@ public extension Mutation where Subject: UIButton {
           for: state
         )
       }
-    }
-  }
-  
-  @inlinable static func titleColor(
-    _ color: UIColor,
-    forState state: UIControl.State = .normal
-  ) -> Self {
-    .custom { (subject: Subject) in
-      subject.setTitleColor(color, for: state)
     }
   }
   

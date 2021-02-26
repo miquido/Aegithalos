@@ -64,6 +64,18 @@ public extension Setup where Subject: UIBarItem {
 
 public extension Mutation where Subject: UIBarItem {
   
+  @inlinable static func isEnabled(_ value: Bool) -> Self {
+    .custom { (subject: Subject) in
+      subject.isEnabled = value
+    }
+  }
+  
+  @inlinable static func imageInsets(_ value: UIEdgeInsets) -> Self {
+    .custom { (subject: Subject) in
+      subject.imageInsets = value
+    }
+  }
+  
   @inlinable static func title(
     localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,

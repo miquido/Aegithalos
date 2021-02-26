@@ -30,6 +30,18 @@ public extension Setup where Subject: UIControl {
 
 public extension Mutation where Subject: UIControl {
   
+  @inlinable static func contentHorizontalAlignment(_ value: UIControl.ContentHorizontalAlignment) -> Self {
+    .custom { (subject: Subject) in
+      subject.contentHorizontalAlignment = value
+    }
+  }
+  
+  @inlinable static func contentVerticalAlignment(_ value: UIControl.ContentVerticalAlignment) -> Self {
+    .custom { (subject: Subject) in
+      subject.contentVerticalAlignment = value
+    }
+  }
+  
   @inlinable static func target(
     _ target: Any & NSObjectProtocol,
     action: Selector,

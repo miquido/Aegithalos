@@ -46,6 +46,24 @@ public extension Setup where Subject: UIBarButtonItem {
 
 public extension Mutation where Subject: UIBarButtonItem {
   
+  @inlinable static func style(_ value: UIBarButtonItem.Style) -> Self {
+    .custom { (subject: Subject) in
+      subject.style = value
+    }
+  }
+  
+  @inlinable static func customView(_ value: UIView?) -> Self {
+    .custom { [unowned value] (subject: Subject) in
+      subject.customView = value
+    }
+  }
+  
+  @inlinable static func tintColor(_ value: UIColor) -> Self {
+    .custom { (subject: Subject) in
+      subject.tintColor = value
+    }
+  }
+  
   @inlinable static func target(
     _ target: Any & NSObjectProtocol,
     action: Selector
