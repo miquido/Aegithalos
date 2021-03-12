@@ -31,55 +31,45 @@ public extension Setup where Subject: UIControl {
 public extension Mutation where Subject: UIControl {
   
   @inlinable static func contentHorizontalAlignment(_ value: UIControl.ContentHorizontalAlignment) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.contentHorizontalAlignment = value
     }
   }
   
   @inlinable static func contentVerticalAlignment(_ value: UIControl.ContentVerticalAlignment) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.contentVerticalAlignment = value
     }
   }
   
-  @inlinable static func target(
-    _ target: Any & NSObjectProtocol,
-    action: Selector,
+  @inlinable static func action(
+    _ value: Optional<() -> Void>,
     for event: UIControl.Event = .touchUpInside
   ) -> Self {
-    .custom { [unowned target] (subject: Subject) in
-      subject.addTarget(target, action: action, for: event)
+    Self { (subject: Subject) in
+      if let closure = value {
+        subject.addAction(closure, for: event)
+      } else {
+        subject.removeActions(for: event)
+      }
     }
   }
   
   @inlinable static func action(
-    _ closure: @escaping () -> Void,
+    _ value: Optional<(Subject) -> Void>,
     for event: UIControl.Event = .touchUpInside
   ) -> Self {
-    .custom { (subject: Subject) in
-      subject.addAction(closure, for: event)
-    }
-  }
-  
-  @inlinable static func action(
-    _ closure: @escaping (Subject) -> Void,
-    for event: UIControl.Event = .touchUpInside
-  ) -> Self {
-    .custom { (subject: Subject) in
-      subject.addAction(
-        { [weak subject] in
-          subject.map(closure)
-        },
-        for: event
-      )
-    }
-  }
-  
-  @inlinable static func noActions(
-    for event: UIControl.Event = .touchUpInside
-  ) -> Self {
-    .custom { (subject: Subject) in
-      subject.removeTarget(nil, action: nil, for: event)
+    Self { (subject: Subject) in
+      if let closure = value {
+        subject.addAction(
+          { [weak subject] in
+            subject.map(closure)
+          },
+          for: event
+        )
+      } else {
+        subject.removeActions(for: event)
+      }
     }
   }
 }

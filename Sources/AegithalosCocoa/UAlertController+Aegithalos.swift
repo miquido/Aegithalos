@@ -5,12 +5,20 @@ import Aegithalos
 public extension Mutation where Subject: UIAlertController {
   
   @inlinable static func title(
+    _ value: String
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.title = value
+    }
+  }
+  
+  @inlinable static func title(
     localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,
@@ -29,12 +37,20 @@ public extension Mutation where Subject: UIAlertController {
   }
   
   @inlinable static func message(
+    _ value: String
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.message = value
+    }
+  }
+  
+  @inlinable static func message(
     localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,
@@ -53,6 +69,22 @@ public extension Mutation where Subject: UIAlertController {
   }
   
   @inlinable static func action(
+    _ title: String,
+    style: UIAlertAction.Style = .default,
+    handler: @escaping () -> Void
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.addAction(
+        UIAlertAction(
+          title: title,
+          style: style,
+          handler: { _ in handler() }
+        )
+      )
+    }
+  }
+  
+  @inlinable static func action(
     localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
@@ -60,7 +92,7 @@ public extension Mutation where Subject: UIAlertController {
     style: UIAlertAction.Style = .default,
     handler: @escaping () -> Void
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,

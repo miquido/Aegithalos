@@ -666,7 +666,7 @@ public extension Mutation where Subject: UIView {
     ],
     masksToBounds: Bool = false
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.layer.cornerRadius = radius
       subject.layer.maskedCorners = corners
       subject.layer.masksToBounds = masksToBounds
@@ -679,7 +679,7 @@ public extension Mutation where Subject: UIView {
     offset: CGSize = CGSize(width: 0, height: 2),
     radius: CGFloat = 4
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.layer.shadowColor = color.cgColor
       subject.layer.shadowOpacity = opacity
       subject.layer.shadowOffset = offset
@@ -692,16 +692,70 @@ public extension Mutation where Subject: UIView {
     width: CGFloat,
     color: UIColor
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.layer.borderWidth = width
       subject.layer.borderColor = color.cgColor
+    }
+  }
+  
+  @inlinable static func backgroundColor(_ value: UIColor?) -> Self {
+    Self { (subject: Subject) in
+      subject.backgroundColor = value
+    }
+  }
+  
+  @inlinable static func tintColor(_ value: UIColor?) -> Self {
+    Self { (subject: Subject) in
+      subject.tintColor = value
+    }
+  }
+  
+  @inlinable static func clipsToBounds(_ value: Bool) -> Self {
+    Self { (subject: Subject) in
+      subject.clipsToBounds = value
+    }
+  }
+  
+  @inlinable static func hidden(_ value: Bool) -> Self {
+    Self { (subject: Subject) in
+      subject.isHidden = value
+    }
+  }
+  
+  @inlinable static func alpha(_ value: CGFloat) -> Self {
+    Self { (subject: Subject) in
+      subject.alpha = value
+    }
+  }
+  
+  @inlinable static func userInteractionEnabled(_ value: Bool) -> Self {
+    Self { (subject: Subject) in
+      subject.isUserInteractionEnabled = value
+    }
+  }
+  
+  @inlinable static func transform(_ value: CGAffineTransform) -> Self {
+    Self { (subject: Subject) in
+      subject.transform = value
+    }
+  }
+  
+  @inlinable static func contentMode(_ value: UIView.ContentMode) -> Self {
+    Self { (subject: Subject) in
+      subject.contentMode = value
+    }
+  }
+  
+  @inlinable static func translatesAutoresizingMaskIntoConstraints(_ value: Bool) -> Self {
+    Self { (subject: Subject) in
+      subject.translatesAutoresizingMaskIntoConstraints = value
     }
   }
   
   @inlinable static func subview(
     _ views: UIView...
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       for view in views {
         Swift.assert(view.superview == nil, "View reuse is usually a bug.")
         subject.addSubview(view)
@@ -712,7 +766,7 @@ public extension Mutation where Subject: UIView {
   @inlinable static func subview(
     of other: UIView
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       other.addSubview(subject)
     }
   }
@@ -720,7 +774,7 @@ public extension Mutation where Subject: UIView {
   @inlinable static func arrangedSubview(
     of stackView: UIStackView
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       stackView.addArrangedSubview(subject)
     }
   }
@@ -733,7 +787,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -759,7 +813,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -785,7 +839,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -811,7 +865,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -837,7 +891,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -863,7 +917,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -889,7 +943,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -915,7 +969,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraint: NSLayoutConstraint
       switch relation {
@@ -940,7 +994,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let constraint: NSLayoutConstraint
       switch relation {
       case .equalTo:
@@ -964,7 +1018,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let constraint: NSLayoutConstraint
       switch relation {
       case .equalTo:
@@ -989,7 +1043,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let constraint: NSLayoutConstraint
       switch relation {
       case .equalTo:
@@ -1014,7 +1068,7 @@ public extension Mutation where Subject: UIView {
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let constraint: NSLayoutConstraint
       switch relation {
       case .equalTo:
@@ -1037,7 +1091,7 @@ public extension Mutation where Subject: UIView {
     priority: UILayoutPriority = .required,
     usingSafeArea: Bool = true
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.translatesAutoresizingMaskIntoConstraints = false
       let constraints: Array<NSLayoutConstraint>
       if usingSafeArea {
@@ -1067,7 +1121,7 @@ public extension Mutation where Subject: UIView {
     _ axis: NSLayoutConstraint.Axis,
     priority: UILayoutPriority
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setContentHuggingPriority(priority, for: axis)
     }
   }
@@ -1076,7 +1130,7 @@ public extension Mutation where Subject: UIView {
     _ axis: NSLayoutConstraint.Axis,
     priority: UILayoutPriority
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setContentCompressionResistancePriority(priority, for: axis)
     }
   }
@@ -1084,7 +1138,7 @@ public extension Mutation where Subject: UIView {
   @inlinable static func gestureRecognizer(
     _ recognizer: UIGestureRecognizer
   ) -> Self {
-    .custom { [unowned recognizer] (subject: Subject) in
+    Self { (subject: Subject) in
       subject.addGestureRecognizer(recognizer)
     }
   }

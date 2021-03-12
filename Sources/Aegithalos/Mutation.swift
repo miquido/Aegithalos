@@ -3,12 +3,12 @@
 public struct Mutation<Subject> {
   
   /// Wrapped function.
-  @usableFromInline internal let apply: (inout Subject) -> Void
+  @usableFromInline internal let mutation: (inout Subject) -> Void
   
-  @usableFromInline internal init(
-    _ apply: @escaping (inout Subject) -> Void
+  public init(
+    _ mutation: @escaping (inout Subject) -> Void
   ) {
-    self.apply = apply
+    self.mutation = mutation
   }
 }
 
@@ -21,7 +21,7 @@ public extension Mutation {
     on subject: inout Subject
   ) {
     Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
-    apply(&subject)
+    mutation(&subject)
   }
   
   /// Apply mutation on provided subject mutating its copy.
@@ -33,7 +33,7 @@ public extension Mutation {
   ) -> Subject {
     Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
     var subject = subject
-    apply(&subject)
+    mutation(&subject)
     return subject
   }
   
@@ -45,7 +45,7 @@ public extension Mutation {
     _ keyPath: WritableKeyPath<OtherSubject, Subject>
   ) -> Mutation<OtherSubject> {
     Mutation<OtherSubject> { otherSubject in
-      self.apply(&otherSubject[keyPath: keyPath])
+      self.mutation(&otherSubject[keyPath: keyPath])
     }
   }
   
@@ -54,7 +54,7 @@ public extension Mutation {
   @inlinable func contramapOptional() -> Mutation<Optional<Subject>> {
     Mutation<Optional<Subject>> { optionalSubject in
       guard var subject = optionalSubject else { return }
-      self.apply(&subject)
+      self.mutation(&subject)
       optionalSubject = subject
     }
   }
@@ -115,9 +115,9 @@ public extension Mutation {
   ) -> Mutation<Subject> {
     Self { subject in
       if condition {
-        mutation.apply(&subject)
+        mutation.mutation(&subject)
       } else {
-        fallback.apply(&subject)
+        fallback.mutation(&subject)
       }
     }
   }
@@ -134,9 +134,9 @@ public extension Mutation {
   ) -> Mutation<Subject> {
     Self { subject in
       if let some = optional {
-        mutation(some).apply(&subject)
+        mutation(some).mutation(&subject)
       } else {
-        fallback.apply(&subject)
+        fallback.mutation(&subject)
       }
     }
   }
@@ -150,12 +150,18 @@ public extension Mutation {
     _ mutation: @escaping (Variable) -> Mutation<Subject>
   ) -> Mutation<Subject> {
     Self { subject in
-      mutation(variable()).apply(&subject)
+      mutation(variable()).mutation(&subject)
     }
   }
 }
 
 public extension Mutation where Subject: AnyObject {
+  
+  init(
+    _ mutation: @escaping (Subject) -> Void
+  ) {
+    self.init { (subject: inout Subject) in mutation(subject) }
+  }
   
   /// Apply mutation on provided subject mutating it in place.
   /// - parameter subject: Subject on which mutation will be applied.
@@ -180,7 +186,7 @@ public extension Mutation where Subject: AnyObject {
   @inline(__always) static func custom(
     _ mutation: @escaping (Subject) -> Void
   ) -> Mutation<Subject> {
-    Self { subject in mutation(subject) }
+    Self { (subject: Subject) in mutation(subject) }
   }
   
   /// Crate `Mutation` of setting given value throug key path.
@@ -191,7 +197,7 @@ public extension Mutation where Subject: AnyObject {
     _ kayPath: ReferenceWritableKeyPath<Subject, Value>,
     to value: Value
   ) -> Self {
-    Self { subject in subject[keyPath: kayPath] = value }
+    Self { (subject: Subject) in subject[keyPath: kayPath] = value }
   }
 }
 
@@ -201,7 +207,7 @@ internal extension Mutation where Subject: AnyObject {
     _ subject: Subject
   ) {
     var subject = subject // reference itself won't be mutated anyway
-    self.apply(&subject)
+    self.mutation(&subject)
   }
 }
 
@@ -213,7 +219,7 @@ internal extension Mutation where Subject: AnyObject {
   _ mutationBuilder: () -> Mutation<Subject>
 ) {
   Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this function")
-  mutationBuilder().apply(&subject)
+  mutationBuilder().mutation(&subject)
 }
 
 /// Mutate given subject by applying provided mutation.
@@ -238,7 +244,7 @@ public extension Mutation where Subject: EmptyInstantiable {
   /// - returns: New instance of `Subject` after aplication of this `Mutation`.
   @inlinable @discardableResult func instantiate() -> Subject {
     var subject = Subject()
-    self.apply(&subject)
+    self.mutation(&subject)
     return subject
   }
 }

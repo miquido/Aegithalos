@@ -35,11 +35,19 @@ public extension Setup where Subject: UIImageView {
 public extension Mutation where Subject: UIImageView {
   
   @inlinable static func image(
+    _ value: UIImage
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.image = value
+    }
+  }
+  
+  @inlinable static func image(
     named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.image = UIImage(
         named: imageName.rawValue,
         in: bundle,
@@ -53,7 +61,7 @@ public extension Mutation where Subject: UIImageView {
     symbol symbolName: String,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.image = UIImage(
         systemName: symbolName,
         compatibleWith: traitCollection

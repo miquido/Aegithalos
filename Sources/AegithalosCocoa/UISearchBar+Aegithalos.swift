@@ -155,7 +155,7 @@ public extension Mutation where Subject: UISearchBar {
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,
@@ -181,7 +181,7 @@ public extension Mutation where Subject: UISearchBar {
     forIcon icon: UISearchBar.Icon,
     inState state: UIControl.State = .normal
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setImage(
         UIImage(
           named: imageName.rawValue,
@@ -202,7 +202,7 @@ public extension Mutation where Subject: UISearchBar {
     forIcon icon: UISearchBar.Icon,
     inState state: UIControl.State = .normal
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setImage(
         UIImage(
           systemName: symbolName,
@@ -221,7 +221,7 @@ public extension Mutation where Subject: UISearchBar {
     for position: UIBarPosition = .any,
     barMetrics: UIBarMetrics = .default
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setBackgroundImage(
         UIImage(
           named: imageName.rawValue,
@@ -240,7 +240,7 @@ public extension Mutation where Subject: UISearchBar {
     compatibleWith traitCollection: UITraitCollection? = nil,
     forState state: UIControl.State = .normal
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setSearchFieldBackgroundImage(
         UIImage(
           named: imageName.rawValue,
@@ -256,7 +256,7 @@ public extension Mutation where Subject: UISearchBar {
     _ offset: UIOffset,
     for icon: UISearchBar.Icon
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setPositionAdjustment(offset, for: icon)
     }
   }

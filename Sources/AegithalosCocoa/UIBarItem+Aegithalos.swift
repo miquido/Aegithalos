@@ -64,15 +64,23 @@ public extension Setup where Subject: UIBarItem {
 
 public extension Mutation where Subject: UIBarItem {
   
-  @inlinable static func isEnabled(_ value: Bool) -> Self {
-    .custom { (subject: Subject) in
+  @inlinable static func enabled(_ value: Bool) -> Self {
+    Self { (subject: Subject) in
       subject.isEnabled = value
     }
   }
   
   @inlinable static func imageInsets(_ value: UIEdgeInsets) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.imageInsets = value
+    }
+  }
+  
+  @inlinable static func title(
+    _ value: String
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.title = value
     }
   }
   
@@ -82,7 +90,7 @@ public extension Mutation where Subject: UIBarItem {
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,
@@ -101,11 +109,19 @@ public extension Mutation where Subject: UIBarItem {
   }
   
   @inlinable func image(
+    _ value: UIImage
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.image = value
+    }
+  }
+  
+  @inlinable func image(
     named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.image = UIImage(
         named: imageName.rawValue,
         in: bundle,
@@ -119,7 +135,7 @@ public extension Mutation where Subject: UIBarItem {
     symbol symbolName: String,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.image = UIImage(
         systemName: symbolName,
         compatibleWith: traitCollection

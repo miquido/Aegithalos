@@ -51,13 +51,19 @@ public extension Setup where Subject: UIViewController {
 
 public extension Mutation where Subject: UIViewController {
   
+  @inlinable static func title(_ value: String) -> Self {
+    Self { (subject: Subject) in
+      subject.title = value
+    }
+  }
+  
   @inlinable static func title(
     localized key: LocalizationKeyConstant,
     fromTable tableName: String? = nil,
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,
@@ -72,6 +78,18 @@ public extension Mutation where Subject: UIViewController {
           arguments: arguments
         )
       }
+    }
+  }
+  
+  @inlinable static func definesPresentationContext(_ value: Bool) -> Self {
+    Self { (subject: Subject) in
+      subject.definesPresentationContext = value
+    }
+  }
+  
+  @inlinable static func modalPresentationStyle(_ value: UIModalPresentationStyle) -> Self {
+    Self { (subject: Subject) in
+      subject.modalPresentationStyle = value
     }
   }
 }

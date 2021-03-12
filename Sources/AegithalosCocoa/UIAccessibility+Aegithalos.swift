@@ -116,7 +116,7 @@ public extension Setup where Subject: NSObject & UIAccessibilityIdentification {
 public extension Mutation where Subject: UIAccessibilityIdentification {
   
   @inlinable static func accessibilityIdentifier(_ identifier: String?) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.accessibilityIdentifier = identifier
     }
   }

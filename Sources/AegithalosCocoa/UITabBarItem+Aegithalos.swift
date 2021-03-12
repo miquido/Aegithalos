@@ -78,7 +78,7 @@ public extension Mutation where Subject: UITabBarItem {
     arguments: CVarArg...,
     forState state: UIControl.State = .normal
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       let localized = NSLocalizedString(
         key.rawValue,
         tableName: tableName,
@@ -100,7 +100,7 @@ public extension Mutation where Subject: UITabBarItem {
     _ attributes: Dictionary<NSAttributedString.Key, Any>,
     forState state: UIControl.State = .normal
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.setBadgeTextAttributes(attributes, for: state)
     }
   }
@@ -110,7 +110,7 @@ public extension Mutation where Subject: UITabBarItem {
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.selectedImage = UIImage(
         named: imageName.rawValue,
         in: bundle,
@@ -124,7 +124,7 @@ public extension Mutation where Subject: UITabBarItem {
     symbol symbolName: String,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
-    .custom { (subject: Subject) in
+    Self { (subject: Subject) in
       subject.selectedImage = UIImage(
         systemName: symbolName,
         compatibleWith: traitCollection
