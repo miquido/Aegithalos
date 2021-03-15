@@ -3,10 +3,10 @@ import XCTest
 
 final class SetupTests: XCTestCase {
   
-  var structSubject: StructSubject!
-  var parentStructSubject: ParentStructSubject!
-  var classSubject: ClassSubject!
-  var parentClassSubject: ParentClassSubject!
+  fileprivate var structSubject: StructSubject!
+  fileprivate var parentStructSubject: ParentStructSubject!
+  fileprivate var classSubject: ClassSubject!
+  fileprivate var parentClassSubject: ParentClassSubject!
   
   override func setUp() {
     super.setUp()
@@ -264,18 +264,18 @@ final class SetupTests: XCTestCase {
   }
 }
 
-struct StructSubject {
+private struct StructSubject {
   var value: Int = 42
 }
 
-struct ParentStructSubject {
+private struct ParentStructSubject {
   var child: StructSubject = StructSubject()
 }
 
-class ClassSubject {
+private class ClassSubject {
   var value: Int = 42
 }
 
-class ParentClassSubject {
+private class ParentClassSubject {
   let child: ClassSubject = ClassSubject()
 }

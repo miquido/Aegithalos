@@ -4,7 +4,9 @@ import UIKit
 
 internal extension UIGestureRecognizer {
   
-  @usableFromInline func associate(_ closureHolder: ClosureHolder) {
+  @usableFromInline func associate(
+    _ closureHolder: ClosureHolder
+  ) {
     objc_setAssociatedObject(
       self,
       closureHolderAssociationKeyPointer,

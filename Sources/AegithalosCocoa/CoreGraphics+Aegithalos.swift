@@ -1,6 +1,5 @@
 #if canImport(CoreGraphics)
 import CoreGraphics
-import Aegithalos
 
 public extension CGRect {
   

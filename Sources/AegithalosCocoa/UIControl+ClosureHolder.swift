@@ -2,11 +2,11 @@
 
 import UIKit
 
-public extension UIControl {
+internal extension UIControl {
   
   /// - warning: Closure will never be released until its holder (this UIControl) becomes released.
-  /// However you can still remove it from being executed for given event using `removeTarget(_:action:for:)` method.
-  func addAction(
+  /// However you can still remove it from being executed for given event using `removeActions` or `removeTarget(_:action:for:)` method.
+  @usableFromInline func addAction(
     _ closure: @escaping () -> Void,
     for event: UIControl.Event = .touchUpInside
   ) {
@@ -25,6 +25,12 @@ public extension UIControl {
       closureHolder,
       .OBJC_ASSOCIATION_RETAIN_NONATOMIC
     )
+  }
+  
+  @usableFromInline func removeActions(
+    for event: UIControl.Event
+  ) {
+    removeTarget(nil, action: nil, for: event)
   }
 }
 

@@ -3,6 +3,7 @@
 /// - parameter then: Function executed when condition evaluates to true.
 /// - parameter else: Function executed when condition evaluates to false.
 /// - returns: Result of either function.
+@available(*, deprecated, message: "Will be removed in version 2.0")
 @discardableResult public func when<T>(
   _ condition: @autoclosure () -> Bool,
   then: () throws -> T,
@@ -19,6 +20,7 @@
 /// Conditionally execute  function.
 /// - parameter condition: Condition checked to determine if function will be executed.
 /// - parameter then: Function executed when condition evaluates to true.
+@available(*, deprecated, message: "Will be removed in version 2.0")
 public func when(
   _ condition: @autoclosure () -> Bool,
   then: () throws -> Void
@@ -36,6 +38,7 @@ public func when(
 /// - parameter then: Function executed when condition evaluates to false.
 /// - parameter else: Function executed when condition evaluates to true.
 /// - returns: Result of either function.
+@available(*, deprecated, message: "Will be removed in version 2.0")
 @discardableResult public func whenNot<T>(
   _ condition: @autoclosure () -> Bool,
   then: () throws -> T,
@@ -52,6 +55,7 @@ public func when(
 /// Conditionally execute  function.
 /// - parameter condition: Condition checked to determine if function will be executed.
 /// - parameter then: Function executed when condition evaluates to false.
+@available(*, deprecated, message: "Will be removed in version 2.0")
 public func whenNot(
   _ condition: @autoclosure () -> Bool,
   then: () throws -> Void
@@ -69,6 +73,7 @@ public extension Bool {
   /// Conditionally execute  function if true.
   /// - parameter closure: Function executed when true
   /// - returns: .Self
+  @available(*, deprecated, message: "Will be removed in version 2.0")
   @discardableResult func whenTrue(_ closure: () throws -> Void) rethrows -> Self {
     switch self {
     case true:
@@ -82,6 +87,7 @@ public extension Bool {
   /// Conditionally execute  function if false.
   /// - parameter closure: Function executed when false
   /// - returns: .Self
+  @available(*, deprecated, message: "Will be removed in version 2.0")
   @discardableResult func whenFalse(_ closure: () throws -> Void) rethrows -> Self {
     switch self {
     case true:
@@ -98,6 +104,7 @@ public extension Optional {
   /// Conditionally execute  function if wrapped value is present.
   /// - parameter closure: Function executed with access to wrapped value if any.
   /// - returns: .Self
+  @available(*, deprecated, message: "Will be removed in version 2.0")
   @discardableResult func whenSome(_ closure: (Wrapped) throws -> Void) rethrows -> Self {
     switch self {
     case let .some(wrapped):
@@ -111,6 +118,7 @@ public extension Optional {
   /// Conditionally execute  function if wrapped value is not present.
   /// - parameter closure: Function executed if there is no value.
   /// - returns: .Self
+  @available(*, deprecated, message: "Will be removed in version 2.0")
   @discardableResult func whenNone(_ closure: () throws -> Void) rethrows -> Self {
     switch self {
     case .some:
@@ -127,6 +135,7 @@ public extension Result {
   /// Conditionally execute  function on success.
   /// - parameter closure: Function executed with access to success value if succeeded.
   /// - returns: .Self
+  @available(*, deprecated, message: "Will be removed in version 2.0")
   @discardableResult func whenSuccess(_ closure: (Success) throws -> Void) rethrows -> Self {
     switch self {
     case let .success(success):
@@ -140,6 +149,7 @@ public extension Result {
   /// Conditionally execute  function on failure.
   /// - parameter closure: Function executed with access to error if failed.
   /// - returns: .Self
+  @available(*, deprecated, message: "Will be removed in version 2.0")
   @discardableResult func whenFailure(_ closure: (Failure) throws -> Void) rethrows -> Self {
     switch self {
     case .success:

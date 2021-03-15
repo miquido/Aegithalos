@@ -4,8 +4,10 @@ import AegithalosCocoa
 class PlaygroundViewController: UIViewController {
   
   override func loadView() {
-    view = Setup.of(UIView.self)
-      .backgroundColor(.white)
+    view = Mutation<UIView>
+      .combined(
+        .backgroundColor(.white)
+      )
       .instantiate()
   }
 }

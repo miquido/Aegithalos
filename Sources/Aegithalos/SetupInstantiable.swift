@@ -1,4 +1,5 @@
 /// Protocol that allows making new instances of subjects directly from `Setup`.
+@available(*, deprecated, message: "Will be replaced by `EmptyInstantiable` in version 2.0")
 public protocol SetupInstantiable {
   
   /// Create new instance of `Self` suitable for application of `Setup`.
