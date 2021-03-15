@@ -46,7 +46,7 @@ let newLabelAfterSetup = labelSetup.instantiate()
 Moreover mutations can be composed to refine and apply large sets of mutations on complex subjects.
 
 ```swift
-let baseLabelSetup = Mutation{ (label: UILabel) in
+let baseLabelSetup = Mutation { (label: UILabel) in
     /* do some base setup */
   }
 let errorLabelSetup = Mutation
