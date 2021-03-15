@@ -43,32 +43,41 @@ public extension Mutation where Subject: UIControl {
   }
   
   @inlinable static func action(
-    _ value: Optional<() -> Void>,
+    _ value: @escaping () -> Void,
+    replace: Bool = true,
     for event: UIControl.Event = .touchUpInside
   ) -> Self {
     Self { (subject: Subject) in
-      if let closure = value {
-        subject.addAction(closure, for: event)
-      } else {
+      if replace {
         subject.removeActions(for: event)
+        subject.addAction(value, for: event)
+      } else {
+        subject.addAction(value, for: event)
       }
     }
   }
   
   @inlinable static func action(
-    _ value: Optional<(Subject) -> Void>,
+    _ value: @escaping (Subject) -> Void,
+    replace: Bool = true,
     for event: UIControl.Event = .touchUpInside
   ) -> Self {
     Self { (subject: Subject) in
-      if let closure = value {
+      if replace {
+        subject.removeActions(for: event)
         subject.addAction(
           { [weak subject] in
-            subject.map(closure)
+            subject.map(value)
           },
           for: event
         )
       } else {
-        subject.removeActions(for: event)
+        subject.addAction(
+          { [weak subject] in
+            subject.map(value)
+          },
+          for: event
+        )
       }
     }
   }

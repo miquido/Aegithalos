@@ -65,32 +65,21 @@ public extension Mutation where Subject: UIBarButtonItem {
   }
   
   @inlinable static func action(
-    _ value: Optional<() -> Void>
+    _ value: @escaping () -> Void
   ) -> Self {
     Self { (subject: Subject) in
-      if let closure = value {
-        // We can't use closures for target/action mechanism so we use wrapper that exposes objc selector.
-        let closureHolder = ClosureHolder({ _ in closure() }, cleanup: {})
-        // We have to keep reference to ClosureHolder since `target` uses weak reference.
-        subject.target = closureHolder
-        subject.action = #selector(ClosureHolder.invoke(with:))
-        // To avoid subclassing or external storage we keep that as assocaiated object.
-        objc_setAssociatedObject(
-          subject,
-          barButtonItemActionAssociationKeyPointer,
-          closureHolder,
-          .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-        )
-      } else {
-        subject.target = nil
-        subject.action = nil
-        objc_setAssociatedObject(
-          subject,
-          barButtonItemActionAssociationKeyPointer,
-          nil,
-          .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-        )
-      }
+      // We can't use closures for target/action mechanism so we use wrapper that exposes objc selector.
+      let closureHolder = ClosureHolder({ _ in value() }, cleanup: {})
+      // We have to keep reference to ClosureHolder since `target` uses weak reference.
+      subject.target = closureHolder
+      subject.action = #selector(ClosureHolder.invoke(with:))
+      // To avoid subclassing or external storage we keep that as assocaiated object.
+      objc_setAssociatedObject(
+        subject,
+        barButtonItemActionAssociationKeyPointer,
+        closureHolder,
+        .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+      )
     }
   }
 }
