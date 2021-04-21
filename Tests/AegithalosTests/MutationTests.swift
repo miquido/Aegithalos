@@ -76,7 +76,7 @@ final class MutationTests: XCTestCase {
     XCTAssertEqual(classSubject.nested.int, 42)
   }
   
-  func test_combined_combineMutations() {
+  func test_combined_combineMutationsOnStructSubject() {
     Mutation<StructSubject>
       .combined(
         .set(\.string, to: "changed"),
@@ -86,6 +86,18 @@ final class MutationTests: XCTestCase {
     
     XCTAssertEqual(structSubject.string, "changed")
     XCTAssertEqual(structSubject.nested.int, 42)
+  }
+  
+  func test_combined_combineMutationsOnClassSubject() {
+    Mutation<ClassSubject>
+      .combined(
+        .set(\.string, to: "changed"),
+        .set(\.nested.int, to: 42)
+      )
+      .apply(on: classSubject)
+    
+    XCTAssertEqual(classSubject.string, "changed")
+    XCTAssertEqual(classSubject.nested.int, 42)
   }
   
   func test_contramap_appliesMutationsOnMappedStructSubject() {
