@@ -189,6 +189,26 @@ public extension Mutation where Subject: AnyObject {
     Self { (subject: Subject) in mutation(subject) }
   }
   
+  /// Combine multiple `Mutation` into single one.
+  /// - parameter mutations: List of `Mutation` that will be combined into a single one.
+  /// - returns: New instance of `Mutation` combining all provided mutations.
+  /// - note: Mutations will be applied in same order as provided in argument list.
+  @inlinable static func combined(
+    _ mutations: Mutation<Subject>...
+  ) -> Mutation<Subject> {
+    Self { (subject: Subject) in
+      // iteration on raw pointers is much faster than using iterators or forEach
+      mutations.withUnsafeBufferPointer { ptr -> Void in
+        var idx = 0
+        let count = ptr.count
+        while idx < count {
+          ptr[idx].apply(on: subject)
+          idx = idx + 1
+        }
+      }
+    }
+  }
+  
   /// Crate `Mutation` of setting given value throug key path.
   /// - parameter keyPath: Key path of mutated field.
   /// - parameter value: Value set on given key path.

@@ -8,14 +8,14 @@
   <img src="https://img.shields.io/badge/platform-iOS%20|%20iPadOS%20|%20macOS-blue.svg?style=flat">
 </p>
 
-Aegithalos is a small library focused on composition of mutating functions. It is useful for preparing visual styles or repeatable and composable setup for any types.
+Aegithalos is a library focused on composition of mutating functions. It is useful for preparing repeatable and composable setup for any types i.e views or network requests.
 
 ## Instalation
 
 Easiest way to use Aegithalos is to add it as you Swift package dependency:
 
 ```swift
-.package(url: "https://github.com/miquido/aegithalos.git", from: "1.6.0")
+.package(url: "https://github.com/miquido/aegithalos.git", from: "2.0.0")
 ```
 
 You can also use Xcode add SPM dependency option using this URL:  `https://github.com/miquido/aegithalos.git`
@@ -37,7 +37,7 @@ You can use it to apply same setup whenever it is needed...
 labelSetup.apply(on: myLabel)
 ```
 
-... or even instantiate new, mutated subjects conforming to `EmptyInstantiable`.
+... or even instantiate new subjects (conforming to `EmptyInstantiable`) with mutations applied.
 
 ```swift
 let newLabelAfterSetup = labelSetup.instantiate()
