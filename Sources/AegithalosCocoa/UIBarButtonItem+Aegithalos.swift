@@ -47,6 +47,4 @@ public extension Mutation where Subject: UIBarButtonItem {
 // Allocate a single byte for objc associated object key.
 @usableFromInline internal let barButtonItemActionAssociationKeyPointer = UnsafeRawPointer(UnsafeMutableRawPointer.allocate(byteCount: 1, alignment: 0))
 
-extension UIBarButtonItem: EmptyInstantiable {}
-
 #endif

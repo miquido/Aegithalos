@@ -18,7 +18,7 @@ public extension Mutation where Subject: UITextField {
     }
   }
   
-  @inlinable static func borderStyle(_ value: UITextField.BorderStyle) -> Self {
+  @inlinable func borderStyle(_ value: UITextField.BorderStyle) -> Self {
     Self { (subject: Subject) in
       subject.borderStyle = value
     }
