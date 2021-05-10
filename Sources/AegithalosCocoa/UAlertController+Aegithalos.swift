@@ -73,16 +73,17 @@ public extension Mutation where Subject: UIAlertController {
   @inlinable static func action(
     _ title: String,
     style: UIAlertAction.Style = .default,
+    accessibilityIdentifier: String? = nil,
     handler: @escaping () -> Void
   ) -> Self {
     Self { (subject: Subject) in
-      subject.addAction(
-        UIAlertAction(
-          title: title,
-          style: style,
-          handler: { _ in handler() }
-        )
+      let action = UIAlertAction(
+        title: title,
+        style: style,
+        handler: { _ in handler() }
       )
+      action.accessibilityIdentifier = accessibilityIdentifier
+      subject.addAction(action)
     }
   }
   
@@ -92,6 +93,7 @@ public extension Mutation where Subject: UIAlertController {
     inBundle bundle: Bundle = Bundle.main,
     arguments: CVarArg...,
     style: UIAlertAction.Style = .default,
+    accessibilityIdentifier: String? = nil,
     handler: @escaping () -> Void
   ) -> Self {
     Self { (subject: Subject) in
@@ -112,13 +114,13 @@ public extension Mutation where Subject: UIAlertController {
         )
       }
       
-      subject.addAction(
-        UIAlertAction(
-          title: title,
-          style: style,
-          handler: { _ in handler() }
-        )
+      let action = UIAlertAction(
+        title: title,
+        style: style,
+        handler: { _ in handler() }
       )
+      action.accessibilityIdentifier = accessibilityIdentifier
+      subject.addAction(action)
     }
   }
 }
