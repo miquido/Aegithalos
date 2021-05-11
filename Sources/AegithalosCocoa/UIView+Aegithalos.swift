@@ -339,7 +339,7 @@ public extension Mutation where Subject: UIView {
   
   @inlinable static func widthAnchor(
     _ relation: LayoutConstraintRelation,
-    _ constant: CGFloat,
+    constant: CGFloat,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
@@ -363,7 +363,7 @@ public extension Mutation where Subject: UIView {
   
   @inlinable static func heightAnchor(
     _ relation: LayoutConstraintRelation,
-    _ constant: CGFloat,
+    constant: CGFloat,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
@@ -387,8 +387,9 @@ public extension Mutation where Subject: UIView {
   
   @inlinable static func widthAnchor(
     _ relation: LayoutConstraintRelation,
-    _ anchor: NSLayoutAnchor<NSLayoutDimension>,
+    _ anchor: NSLayoutDimension,
     constant: CGFloat = 0,
+    multiplier: CGFloat = 1,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
@@ -397,11 +398,11 @@ public extension Mutation where Subject: UIView {
       let constraint: NSLayoutConstraint
       switch relation {
       case .equalTo:
-        constraint = subject.widthAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.widthAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: constant)
       case .lessThanOrEqualTo:
-        constraint = subject.widthAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+        constraint = subject.widthAnchor.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
       case .greaterThanOrEqualTo:
-        constraint = subject.widthAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+        constraint = subject.widthAnchor.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
@@ -412,8 +413,9 @@ public extension Mutation where Subject: UIView {
   
   @inlinable static func heightAnchor(
     _ relation: LayoutConstraintRelation,
-    _ anchor: NSLayoutAnchor<NSLayoutDimension>,
+    _ anchor: NSLayoutDimension,
     constant: CGFloat = 0,
+    multiplier: CGFloat = 1,
     priority: UILayoutPriority = .required,
     identifier: String? = nil,
     referenceOutput: UnsafeMutablePointer<NSLayoutConstraint?>? = nil
@@ -422,11 +424,11 @@ public extension Mutation where Subject: UIView {
       let constraint: NSLayoutConstraint
       switch relation {
       case .equalTo:
-        constraint = subject.heightAnchor.constraint(equalTo: anchor, constant: constant)
+        constraint = subject.heightAnchor.constraint(equalTo: anchor, multiplier: multiplier, constant: constant)
       case .lessThanOrEqualTo:
-        constraint = subject.heightAnchor.constraint(lessThanOrEqualTo: anchor, constant: constant)
+        constraint = subject.heightAnchor.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
       case .greaterThanOrEqualTo:
-        constraint = subject.heightAnchor.constraint(greaterThanOrEqualTo: anchor, constant: constant)
+        constraint = subject.heightAnchor.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier, constant: constant)
       }
       constraint.priority = priority
       constraint.isActive = true
