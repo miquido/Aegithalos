@@ -56,6 +56,20 @@ public extension Mutation where Subject: UINavigationBar {
   }
   
   @inlinable static func backgroundImage(
+    _ image: UIImage?,
+    for position: UIBarPosition = .any,
+    barMetrics: UIBarMetrics = .default
+  ) -> Self {
+    Self { (subject: Subject) in
+      subject.setBackgroundImage(
+        image,
+        for: position,
+        barMetrics: barMetrics
+      )
+    }
+  }
+  
+  @inlinable static func backgroundImage(
     named imageName: ImageNameConstant,
     from bundle: Bundle? = nil,
     compatibleWith traitCollection: UITraitCollection? = nil,

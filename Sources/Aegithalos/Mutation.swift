@@ -97,10 +97,10 @@ public extension Mutation {
   /// - parameter value: Value set on given key path.
   /// - returns: New instance of `Mutation` setting given value using provided key path.
   @inline(__always) static func set<Value>(
-    _ kayPath: WritableKeyPath<Subject, Value>,
+    _ keyPath: WritableKeyPath<Subject, Value>,
     to value: Value
   ) -> Self {
-    Self { subject in subject[keyPath: kayPath] = value }
+    Self { subject in subject[keyPath: keyPath] = value }
   }
   
   /// Create conditional `Mutation` applied only when condition evaluates to true.
@@ -214,10 +214,10 @@ public extension Mutation where Subject: AnyObject {
   /// - parameter value: Value set on given key path.
   /// - returns: New instance of `Mutation` setting given value using provided key path.
   @inline(__always) static func set<Value>(
-    _ kayPath: ReferenceWritableKeyPath<Subject, Value>,
+    _ keyPath: ReferenceWritableKeyPath<Subject, Value>,
     to value: Value
   ) -> Self {
-    Self { (subject: Subject) in subject[keyPath: kayPath] = value }
+    Self { (subject: Subject) in subject[keyPath: keyPath] = value }
   }
 }
 
