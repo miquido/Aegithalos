@@ -56,12 +56,12 @@ public extension Mutation where Subject: UITabBarItem {
   
   @available(iOS 13.0, *)
   @inlinable static func selectedImage(
-    symbol symbolName: String,
+    symbol: SymbolNameConstant,
     compatibleWith traitCollection: UITraitCollection? = nil
   ) -> Self {
     Self { (subject: Subject) in
       subject.selectedImage = UIImage(
-        systemName: symbolName,
+        systemName: symbol.rawValue,
         compatibleWith: traitCollection
       )
     }
