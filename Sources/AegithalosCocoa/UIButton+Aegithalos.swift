@@ -125,7 +125,7 @@ public extension Mutation where Subject: UIButton {
   
   @available(iOS 13.0, *)
   @inlinable static func image(
-    symbol symbolName: String,
+    symbol: SymbolNameConstant,
     withInsets insets: UIEdgeInsets = .zero,
     compatibleWith traitCollection: UITraitCollection? = nil,
     forState state: UIControl.State = .normal
@@ -133,7 +133,7 @@ public extension Mutation where Subject: UIButton {
     Self { (subject: Subject) in
       subject.setImage(
         UIImage(
-          systemName: symbolName,
+          systemName: symbol.rawValue,
           compatibleWith: traitCollection
         ),
         for: state

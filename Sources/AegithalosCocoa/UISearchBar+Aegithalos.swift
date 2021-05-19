@@ -53,7 +53,7 @@ public extension Mutation where Subject: UISearchBar {
   
   @available(iOS 13.0, *)
   @inlinable static func image(
-    symbol symbolName: String,
+    symbol: SymbolNameConstant,
     withInsets insets: UIEdgeInsets = .zero,
     compatibleWith traitCollection: UITraitCollection? = nil,
     forIcon icon: UISearchBar.Icon,
@@ -62,7 +62,7 @@ public extension Mutation where Subject: UISearchBar {
     Self { (subject: Subject) in
       subject.setImage(
         UIImage(
-          systemName: symbolName,
+          systemName: symbol.rawValue,
           compatibleWith: traitCollection
         ),
         for: icon,
