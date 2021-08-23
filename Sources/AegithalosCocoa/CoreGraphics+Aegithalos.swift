@@ -1,8 +1,8 @@
 import CoreGraphics
 
-public extension CGRect {
-  
-  init(center: CGPoint, size: CGSize) {
+extension CGRect {
+
+  public init(center: CGPoint, size: CGSize) {
     self.init(
       origin: CGPoint(
         x: center.x - size.width / 2,
@@ -10,8 +10,8 @@ public extension CGRect {
       size: size
     )
   }
-  
-  var center: CGPoint {
+
+  public var center: CGPoint {
     CGPoint(
       x: (maxX - minX) / 2,
       y: (maxY - minY) / 2
