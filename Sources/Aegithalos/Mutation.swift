@@ -153,6 +153,21 @@ public extension Mutation {
       mutation(variable()).mutation(&subject)
     }
   }
+
+  /// Create `Mutation` with collection of variables.
+  /// - parameter collection: Collection used to apply `Mutation` for each of its element.
+  /// - parameter mutation: Closure returning `Mutation` with access to single collection element. Will be called on each application of created `Mutation` for each element in provided collection.
+  /// - returns: New instance of `Mutation` with multiple mutations on each application.
+  @inlinable static func forEach<ElementCollection: Collection>(
+    in collection: ElementCollection,
+    _ mutation: @escaping (ElementCollection.Element) -> Mutation<Subject>
+  ) -> Mutation<Subject> {
+    Self { subject in
+      for element in collection {
+        mutation(element).mutation(&subject)
+      }
+    }
+  }
 }
 
 public extension Mutation where Subject: AnyObject {
