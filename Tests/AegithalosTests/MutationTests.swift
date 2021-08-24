@@ -266,11 +266,34 @@ final class MutationTests: XCTestCase {
     
     XCTAssertNotEqual(instantiated, StructSubject())
   }
+
+  func test_forEach_withEmptyCollection_doesNothing() {
+    Mutation<StructSubject>
+      .forEach(
+        in: Set<Int>(),
+        { element in .custom { $0.array.append(element) } }
+      )
+      .apply(on: &structSubject)
+
+    XCTAssertEqual(structSubject.array, [])
+  }
+
+  func test_forEach_mutatesForEachElement() {
+    Mutation<StructSubject>
+      .forEach(
+        in: [1, 2, 3],
+        { element in .custom { $0.array.append(element) } }
+      )
+      .apply(on: &structSubject)
+
+    XCTAssertEqual(structSubject.array, [1, 2, 3])
+  }
 }
 
 private struct StructSubject: Equatable, EmptyInstantiable {
   
   var string: String = ""
+  var array: Array<Int> = []
   var nested: Nested = Nested()
   
   struct Nested: Equatable {
