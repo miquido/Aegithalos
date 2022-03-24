@@ -17,10 +17,10 @@ public extension Mutation {
   /// Apply mutation on provided subject mutating it in place.
   /// - parameter subject: Subject on which mutation will be applied.
   /// - warning: This method is not suitable for reference types.
+  @_disfavoredOverload
   @inline(__always) func apply(
     on subject: inout Subject
   ) {
-    Swift.assert(!(Subject.self is AnyObject.Type), "Reference types are not supported by this method")
     mutation(&subject)
   }
   
@@ -41,6 +41,7 @@ public extension Mutation {
   /// - parameter keyPath: KeyPath used to provide mapping. It has to point to mutable value of
   /// original `Subject` type inside new `Subject` type.
   /// - returns: New instance of `Mutation` operating on mapped subject.
+  @_disfavoredOverload
   @inlinable func contramap<OtherSubject>(
     _ keyPath: WritableKeyPath<OtherSubject, Subject>
   ) -> Mutation<OtherSubject> {
@@ -65,6 +66,7 @@ public extension Mutation {
   /// Create custom mutation by providing closure operating on subject.
   /// - parameter mutation: Function that will be wrapped into `Mutation`.
   /// - returns: New instance of `Mutation` enclosing provided closure.
+  @_disfavoredOverload
   @inline(__always) static func custom(
     _ mutation: @escaping (inout Subject) -> Void
   ) -> Mutation<Subject> {
@@ -76,6 +78,7 @@ public extension Mutation {
   /// - parameter mutations: List of `Mutation` that will be combined into a single one.
   /// - returns: New instance of `Mutation` combining all provided mutations.
   /// - note: Mutations will be applied in same order as provided in argument list.
+  @_disfavoredOverload
   @inlinable static func combined(
     _ mutations: Mutation<Subject>...
   ) -> Mutation<Subject> {
@@ -96,6 +99,7 @@ public extension Mutation {
   /// - parameter keyPath: Key path of mutated field.
   /// - parameter value: Value set on given key path.
   /// - returns: New instance of `Mutation` setting given value using provided key path.
+  @_disfavoredOverload
   @inline(__always) static func set<Value>(
     _ keyPath: WritableKeyPath<Subject, Value>,
     to value: Value
@@ -204,26 +208,6 @@ public extension Mutation where Subject: AnyObject {
     Self { (subject: Subject) in mutation(subject) }
   }
   
-  /// Combine multiple `Mutation` into single one.
-  /// - parameter mutations: List of `Mutation` that will be combined into a single one.
-  /// - returns: New instance of `Mutation` combining all provided mutations.
-  /// - note: Mutations will be applied in same order as provided in argument list.
-  @inlinable static func combined(
-    _ mutations: Mutation<Subject>...
-  ) -> Mutation<Subject> {
-    Self { (subject: Subject) in
-      // iteration on raw pointers is much faster than using iterators or forEach
-      mutations.withUnsafeBufferPointer { ptr -> Void in
-        var idx = 0
-        let count = ptr.count
-        while idx < count {
-          ptr[idx].apply(on: subject)
-          idx = idx + 1
-        }
-      }
-    }
-  }
-  
   /// Crate `Mutation` of setting given value throug key path.
   /// - parameter keyPath: Key path of mutated field.
   /// - parameter value: Value set on given key path.
@@ -249,6 +233,7 @@ internal extension Mutation where Subject: AnyObject {
 /// Mutate given subject by applying provided mutation.
 /// - parameter subject: Subject that will be used for application of `Mutation`.
 /// - parameter mutationBuilder: Block called to provide `Mutation` applied on passed subject.
+@_disfavoredOverload
 @inline(__always) public func mut<Subject>(
   _ subject: inout Subject,
   _ mutationBuilder: () -> Mutation<Subject>
